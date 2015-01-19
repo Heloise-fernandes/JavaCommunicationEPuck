@@ -1,2 +1,2 @@
 # JavaCommunicationEPuck
-Application java utillisant la bibliothèque rxtx pour contrôle un robot e-pucks pas bluetooth
+Application java utillisant la bibliothèque rxtx pour contrôler un robot e-pucks par bluetooth

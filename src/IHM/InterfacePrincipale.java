@@ -30,6 +30,7 @@ public class InterfacePrincipale implements Runnable
 		this.fenetre = new JFrame();
 		this.fenetre.setSize(800,450);
 		this.fenetre.setLayout(new BorderLayout());
+		this.fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		//Configuration du panel de gauche
 		this.paneGauche = new JPanel();

@@ -9,7 +9,7 @@ public enum EpuckOrder {
 	ARRETER("S"),
 	AIDE("H"),
 	TOUPIE("D"),
-	IR_RECEPTEUR("G");
+	PROXIMITE("N");
 	
 	private final String ordre;
 	

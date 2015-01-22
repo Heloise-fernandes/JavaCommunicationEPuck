@@ -25,15 +25,19 @@ public class EPuck
 	{
 		this.in=in;
 		this.out=out;
-		try {
+		try 
+		{
 			this.br= new BufferedReader(new InputStreamReader(in, "US-ASCII"));
-		} catch (UnsupportedEncodingException e) {
+		} 
+		catch (UnsupportedEncodingException e) 
+		{
 			System.out.println("Problème création robot");
 			e.printStackTrace();
 		}
 	}
 	
 	/**
+	 * AvancerToutDroit
 	 * Permet d'avancer en ligne droite (vers l'avant ou l'arrière)
 	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (TODO).
 	 * Si la vitesse est négative, le robot recule.
@@ -44,6 +48,17 @@ public class EPuck
 			out.write((EpuckOrder.AVANCERTOUTDROIT+","+vitesse+","+vitesse+"\n\r").getBytes("US-ASCII"));
 		}
 		catch (IOException e) {System.out.println("Problème sortie (avancer)"); e.printStackTrace();}
+	}
+	/**
+	 * AvancerToutDroit selon une distance
+	 * Permet d'avancer en ligne droite (vers l'avant ou l'arrière)
+	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (1000).
+	 * Si la vitesse est négative, le robot recule.
+	 * distance un entier qui definit la distance à parcourir par le robot
+	 */
+	public void avancerToutDroit(int vitesse, int distance)
+	{
+		
 	}
 	
 	
@@ -60,21 +75,30 @@ public class EPuck
 	}
 	
 	/**
+	 * TODO
 	 * Permet d'afficher l'aide fournie par le robot
 	 */
 	public void aide()
 	{
-		try{
+		boolean premièreligne = false; 
+		try
+		{
 			out.write((EpuckOrder.AIDE+"\n\r").getBytes("US-ASCII"));
 		}
 		catch (IOException e) {System.out.println("Problème sortie (aide)"); e.printStackTrace();}
 		
 		try
 		 {
-			//Thread.sleep(500);
-			 while(in.read()>0)
-			 {
-				 System.out.println(br.readLine());
+			if(br.ready())
+			{ 
+				 while(true)
+				 {
+					if(br.ready()==false)
+					 {
+						 break;
+					 }
+					 System.out.println(br.readLine());
+				}
 			 }
 		 }
 		catch (IOException e) {System.out.println("Problème lecture (aide)");e.printStackTrace();} //catch (InterruptedException e) {e.printStackTrace();}
@@ -99,7 +123,7 @@ public class EPuck
 	{
 		try
 		{
-			out.write((EpuckOrder.AIDE+"\n\r").getBytes("US-ASCII"));
+			out.write((EpuckOrder.PROXIMITE+"\n\r").getBytes("US-ASCII"));
 		}
 		catch (IOException e) 
 		{
@@ -107,25 +131,17 @@ public class EPuck
 			e.printStackTrace();
 		}
 		
-		
 		try
 		 {
-			BufferedReader br = new BufferedReader(new InputStreamReader(in, "US-ASCII"));
-			Thread.sleep(500);
-			while (in.read()>0)
-			{
-			 System.out.println(br.readLine());
-			}
+			if(br.ready())
+			 {
+				 System.out.println(br.readLine());
+			 }
 		 }
 		 catch (IOException e) 
 		 {
 			 System.out.println("Problème entrée (aide)");
 			 e.printStackTrace();
-	     } catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-	    	 
-	    	System.out.println("Problème lecture (aide)");
-			e.printStackTrace();
-		}
+	     } 
 	}
 }

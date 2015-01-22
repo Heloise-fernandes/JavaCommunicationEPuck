@@ -6,14 +6,18 @@ public class ProgrammePrincipale {
 
 		SerialPortConnexion port = new SerialPortConnexion("COM4");
 		port.ouvrirPort();
-		EPuck robot = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());		
-		try 
+		EPuck robot = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());	
+		
+		robot.aide();
+		robot.AfficherValeurCapteur();
+		
+		port.fermerPort();
+		/*try 
 		{
 			robot.aide();
+			Thread.sleep(2000);
 			robot.aide();
-			robot.toupie(300);
-			Thread.sleep(10000);
-			robot.stop();
+			Thread.sleep(2000);
 			port.fermerPort();
 			System.out.println("Fin Programme");
 		} 
@@ -21,6 +25,6 @@ public class ProgrammePrincipale {
 		{
 			System.out.println("Probleme");
 			e.printStackTrace();
-		}
+		}*/
 	}
 }

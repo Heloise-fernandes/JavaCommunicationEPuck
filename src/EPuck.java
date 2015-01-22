@@ -36,6 +36,63 @@ public class EPuck
 		}
 	}
 	
+	
+	/*Avec vitesse par defaut*/
+	public void avancer()
+	{
+		try
+		{
+			out.write((EpuckOrder.AVANCERTOUTDROIT+",500,500\n\r").getBytes("US-ASCII"));
+		}
+		catch (IOException e) {System.out.println("Problème sortie (avancer)"); e.printStackTrace();}
+	}
+	
+	public void reculer()
+	{
+		try
+		{
+			out.write((EpuckOrder.AVANCERTOUTDROIT+",-500,-500\n\r").getBytes("US-ASCII"));
+		}
+		catch (IOException e) {System.out.println("Problème sortie (avancer)"); e.printStackTrace();}
+	}
+
+	public void tournerDroite()
+	{
+		try{
+			out.write((EpuckOrder.TOUPIE+",100,-100\n\r").getBytes("US-ASCII"));
+		}
+		catch (IOException e) {System.out.println("Problème sortie (toupie)"); e.printStackTrace();}
+	}
+ 
+	public void tournerGauche()
+	{
+		try{
+			out.write((EpuckOrder.TOUPIE+",-100,100\n\r").getBytes("US-ASCII"));
+		}
+		catch (IOException e) {System.out.println("Problème sortie (toupie)"); e.printStackTrace();}
+	}
+	
+	/**
+	 * Permet au robot de tourner sur lui même comme une toupie
+	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (TODO)
+	 */
+	public void toupieDroite(int vitesse)
+	{
+		try{
+			out.write((EpuckOrder.TOUPIE+","+vitesse+","+(-vitesse)+"\n\r").getBytes("US-ASCII"));
+		}
+		catch (IOException e) {System.out.println("Problème sortie (toupie)"); e.printStackTrace();}
+	}
+	
+	public void toupieGauche(int vitesse)
+	{
+		try
+		{
+			out.write((EpuckOrder.TOUPIE+","+(-vitesse)+","+vitesse+"\n\r").getBytes("US-ASCII"));
+		}
+		catch (IOException e) {System.out.println("Problème sortie (toupie)"); e.printStackTrace();}
+	}
+	
 	/**
 	 * AvancerToutDroit
 	 * Permet d'avancer en ligne droite (vers l'avant ou l'arrière)
@@ -44,35 +101,13 @@ public class EPuck
 	 */
 	public void avancerToutDroit(int vitesse)
 	{
-		try{
+		try
+		{
 			out.write((EpuckOrder.AVANCERTOUTDROIT+","+vitesse+","+vitesse+"\n\r").getBytes("US-ASCII"));
 		}
 		catch (IOException e) {System.out.println("Problème sortie (avancer)"); e.printStackTrace();}
 	}
-	/**
-	 * AvancerToutDroit selon une distance
-	 * Permet d'avancer en ligne droite (vers l'avant ou l'arrière)
-	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (1000).
-	 * Si la vitesse est négative, le robot recule.
-	 * distance un entier qui definit la distance à parcourir par le robot
-	 */
-	public void avancerToutDroit(int vitesse, int distance)
-	{
-		
-	}
 	
-	
-	/**
-	 * Permet au robot de tourner sur lui même comme une toupie
-	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (TODO)
-	 */
-	public void toupie(int vitesse)
-	{
-		try{
-			out.write((EpuckOrder.TOUPIE+","+vitesse+","+(-vitesse)+"\n\r").getBytes("US-ASCII"));
-		}
-		catch (IOException e) {System.out.println("Problème sortie (toupie)"); e.printStackTrace();}
-	}
 	
 	/**
 	 * TODO
@@ -175,6 +210,7 @@ public class EPuck
 	     }
 		return null; 
 	}
+	
 	public int[] obtenirValeurAccelerometre()
 	{
 		try

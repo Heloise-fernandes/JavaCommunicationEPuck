@@ -47,7 +47,7 @@ public class SerialPortConnexion
 		}
 		this.parametrageConnection();
 	}
-	
+
 	/**
 	 * Entrees:void
 	 * Sorties:void

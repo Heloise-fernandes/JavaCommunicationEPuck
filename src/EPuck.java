@@ -119,7 +119,7 @@ public class EPuck
 	 * Sortie:void
 	 * Affiche la valeur des capteur infrarouge
 	 * */
-	public void AfficherValeurCapteur()
+	public void afficherValeurCapteur()
 	{
 		try
 		{
@@ -135,7 +135,7 @@ public class EPuck
 		 {
 			if(br.ready())
 			 {
-				 System.out.println(br.readLine());
+				System.out.println(br.readLine());
 			 }
 		 }
 		 catch (IOException e) 
@@ -144,4 +144,66 @@ public class EPuck
 			 e.printStackTrace();
 	     } 
 	}
+	
+	public int[] obtenirValeurCapteur()
+	{
+		try
+		{
+			out.write((EpuckOrder.PROXIMITE+"\n\r").getBytes("US-ASCII"));
+		}
+		catch (IOException e) 
+		{
+			System.out.println("Problème sortie (aide)"); 
+			e.printStackTrace();
+		}
+		
+		try
+		 {
+			if(br.ready())
+			 {
+				String chaineValeurCapteur[]= br.readLine().split(",");
+				int[] tableauValeurCapteur = new int[chaineValeurCapteur.length];
+				for(int i=1; i<chaineValeurCapteur.length; i++)
+					tableauValeurCapteur[i]=Integer.parseInt(chaineValeurCapteur[i]);
+				return tableauValeurCapteur;
+			 }
+		 }
+		 catch (IOException e) 
+		 {
+			 System.out.println("Problème entrée (aide)");
+			 e.printStackTrace();
+	     }
+		return null; 
+	}
+	public int[] obtenirValeurAccelerometre()
+	{
+		try
+		{
+			out.write((EpuckOrder.ACCELEROMETRE+"\n\r").getBytes("US-ASCII"));
+		}
+		catch (IOException e) 
+		{
+			System.out.println("Problème sortie (aide)"); 
+			e.printStackTrace();
+		}
+		
+		try
+		 {
+			if(br.ready())
+			 {
+				String chaineValeurAccelerometre[]= br.readLine().split(",");
+				int[] tableauValeurAccelerometre = new int[chaineValeurAccelerometre.length];
+				for(int i=1; i<chaineValeurAccelerometre.length; i++)
+					tableauValeurAccelerometre[i]=Integer.parseInt(chaineValeurAccelerometre[i]);
+				return tableauValeurAccelerometre;
+			 }
+		 }
+		 catch (IOException e) 
+		 {
+			 System.out.println("Problème entrée (aide)");
+			 e.printStackTrace();
+	     }
+		return null; 
+	}
+
 }

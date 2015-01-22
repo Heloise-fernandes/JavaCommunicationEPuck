@@ -9,7 +9,8 @@ public enum EpuckOrder {
 	ARRETER("S"),
 	AIDE("H"),
 	TOUPIE("D"),
-	PROXIMITE("N");
+	PROXIMITE("N"),
+	ACCELEROMETRE("A");
 	
 	private final String ordre;
 	

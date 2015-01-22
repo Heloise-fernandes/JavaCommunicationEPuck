@@ -9,7 +9,8 @@ public class ProgrammePrincipale {
 		EPuck robot = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());	
 		
 		robot.aide();
-		robot.AfficherValeurCapteur();
+		robot.afficherValeurCapteur();
+		robot.obtenirValeurCapteur();
 		
 		port.fermerPort();
 		/*try 

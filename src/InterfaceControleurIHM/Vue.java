@@ -1,6 +1,6 @@
 package InterfaceControleurIHM;
 
-import Controler.Direction;
+import Logique.Direction;
 
 public interface Vue {
 

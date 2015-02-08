@@ -1,7 +1,10 @@
-package Application;
+package Logique;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.omg.PortableInterceptor.SUCCESSFUL;
+
 import gnu.io.CommPortIdentifier;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
@@ -35,18 +38,22 @@ public class SerialPortConnexion
 	 * Sorties:void
 	 * Ouvre le port et vérifie que le port n'est pas utilisé
 	 * */
-	public void ouvrirPort()
+	public boolean ouvrirPort()
 	{
+		if (this.portID==null) return false;
 		try 
 		{
 			 this.port = (SerialPort) portID.open("SerialSender", 2000);
 			 System.out.println("Le port a été ouvert");
+			 this.parametrageConnection();
+			 return true;
 		}
 		catch (PortInUseException e2) 
 		{
 			System.out.println("Le port est déja utilisé");
+			return false;
 		}
-		this.parametrageConnection();
+		
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-package Application;
+package Logique;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,12 +6,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
+import InterfaceControleurIHM.ControleDuRobotEPuck;
+
 /**
  * Classe modélisant le robot ePuck. On peut lui envoyer des ordres.
  * @author Maxime
  *
  */
-public class EPuck 
+public class EPuck implements ControleDuRobotEPuck 
 {
 	private InputStream in;
 	private OutputStream out;
@@ -37,12 +39,10 @@ public class EPuck
 		}
 	}
 	
-	/**
-	 * AvancerToutDroit
-	 * Permet d'avancer en ligne droite (vers l'avant ou l'arrière)
-	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (TODO).
-	 * Si la vitesse est négative, le robot recule.
+	/* (non-Javadoc)
+	 * @see Logique.ControleDuRobotEPuck#avancerToutDroit(int)
 	 */
+	@Override
 	public void avancerToutDroit(int vitesse)
 	{
 		try{
@@ -50,23 +50,20 @@ public class EPuck
 		}
 		catch (IOException e) {System.out.println("Problème sortie (avancer)"); e.printStackTrace();}
 	}
-	/**
-	 * AvancerToutDroit selon une distance
-	 * Permet d'avancer en ligne droite (vers l'avant ou l'arrière)
-	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (1000).
-	 * Si la vitesse est négative, le robot recule.
-	 * distance un entier qui definit la distance à parcourir par le robot
+	/* (non-Javadoc)
+	 * @see Logique.ControleDuRobotEPuck#avancerToutDroit(int, int)
 	 */
+	@Override
 	public void avancerToutDroit(int vitesse, int distance)
 	{
 		
 	}
 	
 	
-	/**
-	 * Permet au robot de tourner sur lui même comme une toupie
-	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (TODO)
+	/* (non-Javadoc)
+	 * @see Logique.ControleDuRobotEPuck#toupie(int)
 	 */
+	@Override
 	public void toupie(int vitesse)
 	{
 		try{
@@ -75,10 +72,10 @@ public class EPuck
 		catch (IOException e) {System.out.println("Problème sortie (toupie)"); e.printStackTrace();}
 	}
 	
-	/**
-	 * TODO
-	 * Permet d'afficher l'aide fournie par le robot
+	/* (non-Javadoc)
+	 * @see Logique.ControleDuRobotEPuck#aide()
 	 */
+	@Override
 	public void aide()
 	{
 		boolean premièreligne = false; 
@@ -107,6 +104,10 @@ public class EPuck
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see Logique.ControleDuRobotEPuck#stop()
+	 */
+	@Override
 	public void stop()
 	{
 		try{
@@ -115,11 +116,10 @@ public class EPuck
 		catch (IOException e) {System.out.println("Problème sortie (stop)"); e.printStackTrace();}
 	}
 	
-	/**
-	 * Entree:void
-	 * Sortie:void
-	 * Affiche la valeur des capteur infrarouge
-	 * */
+	/* (non-Javadoc)
+	 * @see Logique.ControleDuRobotEPuck#AfficherValeurCapteur()
+	 */
+	@Override
 	public void AfficherValeurCapteur()
 	{
 		try

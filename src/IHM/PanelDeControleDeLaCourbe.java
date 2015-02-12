@@ -7,16 +7,16 @@ import javax.swing.*;
 
 public class PanelDeControleDeLaCourbe extends JPanel
 {
-	public JLabel courbe;
-	public JLabel distance;
-	public JLabel angle;
+	private JLabel courbe;
+	private JLabel distance;
+	private JLabel angle;
 
-	public JTextField dist;
-	public JTextField ang;
+	private JTextField dist;
+	private JTextField ang;
 	
-	public JButton action;
+	private JButton action;
 	
-	public JPanel pane;
+	private JPanel pane;
 	
 	public PanelDeControleDeLaCourbe()
 	{

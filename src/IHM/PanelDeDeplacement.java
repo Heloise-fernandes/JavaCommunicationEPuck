@@ -1,6 +1,7 @@
 package IHM;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
@@ -43,15 +44,31 @@ public class PanelDeDeplacement extends JPanel
 		this.stop = new JButton("S");
 		this.stop.addActionListener(auditeurBoutons);
 
-		this.add(new JButton());
+		
+		JButton button_1 = new JButton();
+		button_1.setEnabled(false);
+		this.add(button_1);
+		
 		this.add(haut);
-		this.add(new JButton());
+		
+		JButton button_2 = new JButton();
+		button_2.setEnabled(false);
+		
+		this.add(button_2);
 		this.add(rotGauche);
 		this.add(stop);
 		this.add(rotDroite);
-		this.add(new JButton());
+		
+		JButton button = new JButton();
+		button.setEnabled(false);
+		
+		this.add(button);
 		this.add(bas);
-		this.add(new JButton());
+		
+		JButton button_3 = new JButton();
+		button_3.setEnabled(false);
+		
+		this.add(button_3);
 		
 //		this.paneHaut.add(new PanelDeControleDeDistance());
 //		

@@ -24,14 +24,16 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	private JPanel paneGauche;
 	private JPanel paneDroit;
 	
-	private PanelDeConnexionAuPort pane1;
-	private PanelDeDeplacement pane2;
-	private PanelDeControleDeLaCourbe pane3;
+	private PanelDeConnexionAuPort panelConnexion;
+	private PanelDeDeplacement panelDeplacement;
+	private PanelDeControleDeLaCourbe panelCourbe;
 	
 	private PanelDeTracage pane4;
 	private PanelDeLAccelerometre pane5;
 	private PanelDeLaCamera pane6;
 	private PanelDeDetectionViaCapteurIR pane7;
+	
+	
 
 	private EPuck controler;
 	
@@ -40,6 +42,9 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		this.controler=null;
 	}
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	@Override
 	public void run()
 	{	
@@ -47,7 +52,7 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		//Configuration de la fenêtre JFrame
 		this.fenetre = new JFrame();
 		this.fenetre.setSize(800,450);
-		this.fenetre.setLayout(new BorderLayout());
+		this.fenetre.getContentPane().setLayout(new BorderLayout());
 		this.fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		//Configuration du panel de gauche
@@ -55,12 +60,14 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		this.paneGauche.setLayout(new BorderLayout());
 		
 		//Ajout des éléments du panel de gauche
-		this.pane1 = new PanelDeConnexionAuPort(this);
-		this.pane2 = new PanelDeDeplacement(this);
-		this.pane3 = new PanelDeControleDeLaCourbe();
-		this.paneGauche.add(pane1,BorderLayout.NORTH);
-		this.paneGauche.add(pane2,BorderLayout.CENTER);
-		this.paneGauche.add(pane3,BorderLayout.SOUTH);
+		this.panelConnexion = new PanelDeConnexionAuPort(this);
+		
+		this.panelDeplacement = new PanelDeDeplacement(this);
+		this.panelCourbe = new PanelDeControleDeLaCourbe();
+		this.paneGauche.add(panelConnexion,BorderLayout.NORTH);
+		
+		this.paneGauche.add(panelDeplacement,BorderLayout.CENTER);
+		this.paneGauche.add(panelCourbe,BorderLayout.SOUTH);
 		
 		//Configuration du panel de droite
 		this.paneDroit = new JPanel();
@@ -77,8 +84,8 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		this.paneDroit.add(pane7);
 		
 		//Formation de la fenêtre finale
-		this.fenetre.add(paneGauche,BorderLayout.WEST);
-		this.fenetre.add(paneDroit);
+		this.fenetre.getContentPane().add(paneGauche,BorderLayout.WEST);
+		this.fenetre.getContentPane().add(paneDroit);
 		this.fenetre.setVisible(true);
 	}
 
@@ -98,19 +105,29 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	{
 		if (this.controler != null)
 		{
+			int vitesse;
+			
+			try{
+				vitesse =  Integer.parseInt(this.panelConnexion.getPanelDistance().getVit().getText());
+			}
+			catch (NumberFormatException e)
+			{
+				vitesse = VITESSE_PAR_DEFAUT;
+			}
+			
 			switch (ordre)
 			{
 			case 'H':
-				this.controler.avancerToutDroit(VITESSE_PAR_DEFAUT);
+				this.controler.avancerToutDroit(vitesse);
 				break;
 			case 'B':
-				this.controler.avancerToutDroit(-VITESSE_PAR_DEFAUT);
+				this.controler.avancerToutDroit(-vitesse);
 				break;
 			case 'D':
-				this.controler.toupie(VITESSE_PAR_DEFAUT);
+				this.controler.toupie(vitesse);
 				break;
 			case 'G':
-				this.controler.toupie(-VITESSE_PAR_DEFAUT);
+				this.controler.toupie(-vitesse);
 				break;
 			default:
 				this.controler.stop();
@@ -147,19 +164,20 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		// TODO Auto-generated method stub
 		JComponent source = (JComponent) event.getSource();
 		
-		if (source.getParent() == this.pane1)
+		if (source.getParent() == this.panelConnexion)
 		{
 			try {
-				traiterConnexion(this.pane1.obtenirPortCOM());
+				traiterConnexion(this.panelConnexion.obtenirPortCOM());
 			} catch (TexteVideCOMException e) {
 				JOptionPane.showMessageDialog(this.fenetre, "Vous devez rentrer un N° de port", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		
-		if (source.getParent() == this.pane2)
+		if (source.getParent() == this.panelDeplacement)
 		{
 			traiterDeplacement(((JButton) event.getSource()).getText().charAt(0));
 		}
+		
 		
 		
 	}

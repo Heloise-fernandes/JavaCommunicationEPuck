@@ -12,8 +12,8 @@ public class ProgrammePrincipale {
 		robot.afficherValeurCapteur();
 		robot.obtenirValeurCapteur();
 		
-		port.fermerPort();
-		/*try 
+		//port.fermerPort();
+		try 
 		{
 			robot.aide();
 			Thread.sleep(2000);
@@ -26,6 +26,6 @@ public class ProgrammePrincipale {
 		{
 			System.out.println("Probleme");
 			e.printStackTrace();
-		}*/
+		}
 	}
 }

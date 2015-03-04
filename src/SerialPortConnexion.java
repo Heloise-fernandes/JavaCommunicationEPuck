@@ -46,6 +46,12 @@ public class SerialPortConnexion
 			System.out.println("Le port est déja utilisé");
 		}
 		this.parametrageConnection();
+		try 
+		{
+			Thread.sleep(1000);
+		}
+		catch (InterruptedException e) {}
+		
 	}
 
 	/**
@@ -59,7 +65,7 @@ public class SerialPortConnexion
 		{
 			 this.port.setSerialPortParams(57600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
 			 this.port.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
-			 //this.port.enableReceiveTimeout(5000);
+			 this.port.enableReceiveTimeout(5000);
 			 //this.port.setInputBufferSize(120000);
 		}
 		catch (UnsupportedCommOperationException e3) 

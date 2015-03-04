@@ -7,8 +7,7 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Classe modélisant le robot ePuck. On peut lui envoyer des ordres.
- * @author Maxime
- *
+ * @author Maxime/ it's me Héloïse
  */
 public class EPuck 
 {
@@ -20,6 +19,7 @@ public class EPuck
 	 * Constructeur
 	 * @param in Le flux d'entrée d'un port lié au robot
 	 * @param out Le flux de sortie d'un port lié au robot
+	 * @param br Le tampon de flux
 	 */
 	public EPuck(InputStream in, OutputStream out)
 	{
@@ -55,7 +55,12 @@ public class EPuck
 		}
 		catch (IOException e) {System.out.println("Problème sortie (avancer)"); e.printStackTrace();}
 	}
-
+	
+	/**
+	 * Toupie vers la droite
+	 * Permet au robot de tourner sur lui même comme une toupie
+	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (TODO)
+	 */
 	public void tournerDroite()
 	{
 		try{
@@ -64,6 +69,11 @@ public class EPuck
 		catch (IOException e) {System.out.println("Problème sortie (toupie)"); e.printStackTrace();}
 	}
  
+	/**
+	 * Toupie vers la gauche
+	 * Permet au robot de tourner sur lui même comme une toupie
+	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (TODO)
+	 */
 	public void tournerGauche()
 	{
 		try{
@@ -72,18 +82,27 @@ public class EPuck
 		catch (IOException e) {System.out.println("Problème sortie (toupie)"); e.printStackTrace();}
 	}
 	
+	/*Avec parametre de vitesse*/
+
 	/**
+	 * Toupie vers la droite
 	 * Permet au robot de tourner sur lui même comme une toupie
 	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (TODO)
 	 */
 	public void toupieDroite(int vitesse)
 	{
-		try{
+		try
+		{
 			out.write((EpuckOrder.TOUPIE+","+vitesse+","+(-vitesse)+"\n\r").getBytes("US-ASCII"));
 		}
 		catch (IOException e) {System.out.println("Problème sortie (toupie)"); e.printStackTrace();}
 	}
 	
+	/**
+	 * Toupie vers la gauche
+	 * Permet au robot de tourner sur lui même comme une toupie
+	 * @param vitesse Entier en pas par seconde du robot (1 pas = TODO) La vitesse max du robot est (TODO)
+	 */
 	public void toupieGauche(int vitesse)
 	{
 		try
@@ -108,9 +127,8 @@ public class EPuck
 		catch (IOException e) {System.out.println("Problème sortie (avancer)"); e.printStackTrace();}
 	}
 	
-	
 	/**
-	 * TODO
+	 * Aide, TODO : masquer erreur
 	 * Permet d'afficher l'aide fournie par le robot
 	 */
 	public void aide()
@@ -124,23 +142,25 @@ public class EPuck
 		
 		try
 		 {
-			if(br.ready())
-			{ 
+			String line = "";
 				 while(true)
 				 {
-					if(br.ready()==false)
+					line = br.readLine();
+					if(line == null)
 					 {
 						 break;
 					 }
-					 System.out.println(br.readLine());
+					 System.out.println(line);
 				}
-			 }
+			
 		 }
 		catch (IOException e) {System.out.println("Problème lecture (aide)");e.printStackTrace();} //catch (InterruptedException e) {e.printStackTrace();}
 		
 		
 	}
 	
+	
+	/*Stop*/
 	public void stop()
 	{
 		try{
@@ -150,6 +170,7 @@ public class EPuck
 	}
 	
 	/**
+	 * Afficher valeur de proximite
 	 * Entree:void
 	 * Sortie:void
 	 * Affiche la valeur des capteur infrarouge
@@ -180,6 +201,12 @@ public class EPuck
 	     } 
 	}
 	
+	/**
+	 * Obtenir valeur de proximite
+	 * Entree:void
+	 * Sortie : tableau d'entier
+	 * Affiche la valeur des capteur infrarouge
+	 * */
 	public int[] obtenirValeurCapteur()
 	{
 		try
@@ -211,6 +238,12 @@ public class EPuck
 		return null; 
 	}
 	
+	/**
+	 * Obtenir valeur de accélérometre
+	 * Entree:void
+	 * Sortie : tableau d'entier
+	 * renvoie les valeurs de l'accerometre
+	 * */	
 	public int[] obtenirValeurAccelerometre()
 	{
 		try
@@ -242,4 +275,26 @@ public class EPuck
 		return null; 
 	}
 
+	/**
+	 * Obtenir coordonnée et placer sur la carte
+	 * Entree:void
+	 * Sortie : 
+	 * */
+	public void deplacementCartographier()
+	{
+		/*Voir groupe 2 pour reccuoperer les coordonnée*/
+		int x;
+		int y ;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
 }

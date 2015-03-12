@@ -54,20 +54,17 @@ public class TramesMASH
 				
 		}
 		
-		public void TramesMASHEncapsulation(String tramesRecu)
+		public String TramesMASHEncapsulation(String tramesRecu)
 		{
 		
-			if (tramesRecu.substring(0).equals("2"))
-			{
-				if (tramesRecu.substring(1).equals("1"))
-				{
-					//TODO
-				}
-				else
-				{
-					//TODO
-				}
-			}
+			String TramesRetour ="";
+			
+			TramesRetour = this.enTete+this.donnees.valeurTrameRetour();
+			TramesRetour = TramesRetour + Integer.toHexString(this.donnees.valeurTrameRetour());
+			TramesRetour = TramesRetour + this.donnees.reconstitutionInformationTrameMASH();
+			TramesRetour = TramesRetour + Integer.toHexString( this.donnees.valeurTrameRetour()%((int)Math.pow(2.0, 16.0)));
+			TramesRetour = TramesRetour + this.enQueue;
+			return TramesRetour;
 				
 		}
 }

@@ -38,9 +38,10 @@ public class ProgrammePrincipale
 	public static void main(String[] args) 
 	{
 		
-		String addVoisin="F1";
+		String addVoisin1="F1";
 
-		/*Convertie une chaine hexa decimal en string*/
+		
+		/*Convertie une chaine hexa decimal en int*/
 		int addVoisinInt = Integer.parseInt(addVoisin,16);
 		/*Convertie un int en une chaine hexa*/
 		String chainereconvertis = Integer.toHexString(addVoisinInt);

@@ -4,12 +4,12 @@ import java.math.BigInteger;
 
 public class Voisin 
 {
-	private String adresseVoisin;
+	private int adresseVoisin;
 	private int coordonneeX;
 	private int coordonneeY;
-	private String role;
+	private int role;
 	
-	public Voisin(String id,int x, int y , String r)
+	public Voisin(int id,int x, int y , int r)
 	{
 		this.adresseVoisin = id;
 		this.coordonneeX=x;
@@ -19,13 +19,16 @@ public class Voisin
 	
 	public String toHexaString()
 	{
-		String infoVoisin= String.format("%06x", new BigInteger(1, this.adresseVoisin.getBytes()));
-		infoVoisin= infoVoisin+String.format("%06x", new BigInteger(1, Integer.toString(this.coordonneeX).getBytes()));
-		infoVoisin= infoVoisin+String.format("%06x", new BigInteger(1, Integer.toString(this.coordonneeY).getBytes()));
-		infoVoisin= infoVoisin+String.format("%02x", new BigInteger(1, this.role.getBytes()));
+		String infoVoisin = Integer.toHexString(this.adresseVoisin);
+		infoVoisin= infoVoisin + Integer.toHexString(this.coordonneeX);
+		infoVoisin= infoVoisin + Integer.toHexString(this.coordonneeY);
+		infoVoisin= infoVoisin+Integer.toHexString(this.role);
 		return infoVoisin;
 	}
 	
-	
+	public int valeurVoisin()
+	{
+		return this.adresseVoisin+this.coordonneeX+this.coordonneeY+this.role;
+	}
 	
 }

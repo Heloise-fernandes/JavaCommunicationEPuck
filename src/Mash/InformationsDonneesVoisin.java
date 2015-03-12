@@ -22,7 +22,8 @@ public class InformationsDonneesVoisin implements InformationsTramesMASH
 	public static final int OCTETS_POSITION_DEBUT_DONNEES_ROBOT = 4;
 	public static final int OCTETS_POSITION_FIN_DONNEES_ROBOT = 6;
 	
-	
+	public static final int FONCTION = 2;
+	public static final int SS_FONCTION = 1;
 	
 	public final static String OCTETS_FONCTION_SS_FONCTION_RETOUR = "0201";
 	
@@ -34,6 +35,7 @@ public class InformationsDonneesVoisin implements InformationsTramesMASH
 	
 	public InformationsDonneesVoisin(String info) 
 	{
+		super();
 		this.fonction= info.substring(OCTETS_POSITION_FONCTION, OCTETS_POSITION_FONCTION+OCTETS_TAILLE_FONCTION);
 		this.sousfonction= info.substring(OCTETS_POSITION_SS_FONCTION, OCTETS_POSITION_SS_FONCTION+OCTETS_TAILLE_SS_FONCTION);
 		this.data= info.substring(OCTETS_POSITION_DEBUT_DONNEES, info.length()+OCTETS_POSITION_DEBUT_DONNEES);
@@ -52,7 +54,7 @@ public class InformationsDonneesVoisin implements InformationsTramesMASH
 	
 	public void retourTrameRobots(String info) 
 	{
-		this.voisin= new Voisin(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT, OCTETS_POSITION_DEBUT_DONNEES_ROBOT+6),Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT+6, OCTETS_POSITION_DEBUT_DONNEES_ROBOT+12)),Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT+18, OCTETS_POSITION_DEBUT_DONNEES_ROBOT+24)),info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT+24, info.length()));
+		this.voisin= new Voisin(Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT, OCTETS_POSITION_DEBUT_DONNEES_ROBOT+6)),Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT+6, OCTETS_POSITION_DEBUT_DONNEES_ROBOT+12)),Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT+18, OCTETS_POSITION_DEBUT_DONNEES_ROBOT+24)),Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT+24, info.length())));
 	}
 	
 	public String reconstitutionInformationTrameMASH()
@@ -60,6 +62,13 @@ public class InformationsDonneesVoisin implements InformationsTramesMASH
 		String information=OCTETS_FONCTION_SS_FONCTION_RETOUR;
 		information=information+this.voisin.toHexaString();
 		return information;
+	}
+	
+	public int valeurTrameRetour()
+	{
+		int valeur=0;
+		valeur = this.voisin.valeurVoisin()+FONCTION+SS_FONCTION;
+		return valeur;
 	}
 
 

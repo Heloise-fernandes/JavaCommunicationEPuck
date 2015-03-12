@@ -1,3 +1,4 @@
+package Logique;
 /**
  * Classe permettant d'avoir les ordres en commande epuck
  * @author Maxime

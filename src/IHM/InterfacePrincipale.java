@@ -1,5 +1,10 @@
 package IHM;
 
+
+import Logique.Direction;
+import Logique.EPuck;
+import Logique.SerialPortConnexion;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,9 +16,7 @@ import javax.swing.*;
 
 import Exception.TexteVideCOMException;
 import InterfaceControleurIHM.Vue;
-import Logique.Direction;
-import Logique.EPuck;
-import Logique.SerialPortConnexion;
+
 
 public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyListener
 {
@@ -93,7 +96,7 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	public void traiterConnexion(String portCOM)
 	{
 		SerialPortConnexion port = new SerialPortConnexion(portCOM);
-		if (port.ouvrirPort() == true)
+		if (port.ouvrirPort())
 		{
 			this.controler = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());
 			JOptionPane.showMessageDialog(this.fenetre, "Connexion Réussie", "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -124,10 +127,10 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 				this.controler.avancerToutDroit(-vitesse);
 				break;
 			case 'D':
-				this.controler.toupie(vitesse);
+				this.controler.toupieDroite(vitesse);
 				break;
 			case 'G':
-				this.controler.toupie(-vitesse);
+				this.controler.toupieGauche(-vitesse);
 				break;
 			default:
 				this.controler.stop();
@@ -179,7 +182,6 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		}
 		
 		
-		
 	}
 
 
@@ -188,6 +190,8 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		// TODO Auto-generated method stub
 		
 	}
+
+
 	
 
 }

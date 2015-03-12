@@ -1,3 +1,4 @@
+package Logique;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -280,21 +281,53 @@ public class EPuck
 	 * Entree:void
 	 * Sortie : 
 	 * */
-	public void deplacementCartographier()
+	public int[] deplacementCartographier()
 	{
 		/*Voir groupe 2 pour reccuoperer les coordonnée*/
-		int x;
-		int y ;
+
+		try
+		 {
+			if(br.ready())
+			 {
+				
+				String chaineValeur[]= br.readLine().split(",");
+				if(chaineValeur[0].equals("X"))
+				{
+					int[] chaineValeurCarte = new int[chaineValeur.length];
+					chaineValeurCarte[0]=-1;
+					chaineValeurCarte[1]=Integer.parseInt(chaineValeur[1]);
+					chaineValeurCarte[2]=Integer.parseInt(chaineValeur[2]);
+					return chaineValeurCarte;
+				}
+				
+			 }
+		 }
+		 catch (IOException e) 
+		 {
+			 System.out.println("Problème entrée (aide)");
+			 e.printStackTrace();
+	     }
+		return null; 
+	}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	public int[] envoieTramesMash()
+	{
+
+
+		/*reçois la trâme MASH*/
+		/*evalue en tête*/
+		/*envoie commande sur robots*/
+		/*attend réponse*/
+		/*renvoie vers MASH*/
+		return null;
+	}
+	public int[]reçoisTramesMash()
+	{
+
+		/*écoute si reçois des demandes de position*/
+		/*evalue en tête*/
+		/*renvoie information au robot*/
+		return null;
 	}
 	
 }

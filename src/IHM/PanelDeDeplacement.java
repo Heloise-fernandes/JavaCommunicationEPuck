@@ -1,13 +1,13 @@
 package IHM;
 
+
+
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
-import Logique.Direction;
 
 public class PanelDeDeplacement extends JPanel
 {

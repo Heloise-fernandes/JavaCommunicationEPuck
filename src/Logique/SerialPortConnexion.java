@@ -1,3 +1,4 @@
+package Logique;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -34,8 +35,9 @@ public class SerialPortConnexion
 	 * Sorties:void
 	 * Ouvre le port et vérifie que le port n'est pas utilisé
 	 * */
-	public void ouvrirPort()
+	public Boolean ouvrirPort()
 	{
+		if(this.portID==null){return false;}
 		try 
 		{
 			 this.port = (SerialPort) portID.open("SerialSender", 2000);
@@ -44,6 +46,7 @@ public class SerialPortConnexion
 		catch (PortInUseException e2) 
 		{
 			System.out.println("Le port est déja utilisé");
+			return false;
 		}
 		this.parametrageConnection();
 		try 
@@ -51,7 +54,7 @@ public class SerialPortConnexion
 			Thread.sleep(1000);
 		}
 		catch (InterruptedException e) {}
-		
+		return true;
 	}
 
 	/**

@@ -14,7 +14,16 @@ import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
+import org.jfree.chart.ChartPanel;
+import org.jfree.ui.RefineryUtilities;
+
+import Dessin.Graphique;
 import Exception.TexteVideCOMException;
+import Exception.TexteVideVitesseException;
+import Exception.TexteVideXException;
+import Exception.TexteVideYException;
+import InterfaceControleurIHM.ObservableEpuck;
+import InterfaceControleurIHM.ObservateurEPuck;
 import InterfaceControleurIHM.Vue;
 
 
@@ -30,15 +39,10 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	private PanelDeConnexionAuPort panelConnexion;
 	private PanelDeDeplacement panelDeplacement;
 	private PanelDeControleDeLaCourbe panelCourbe;
-	
-	private PanelDeTracage pane4;
-	private PanelDeLAccelerometre pane5;
-	private PanelDeLaCamera pane6;
-	private PanelDeDetectionViaCapteurIR pane7;
-	
-	
 
 	private EPuck controler;
+
+	private Graphique graphique;
 	
 	public InterfacePrincipale()
 	{
@@ -66,30 +70,46 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		this.panelConnexion = new PanelDeConnexionAuPort(this);
 		
 		this.panelDeplacement = new PanelDeDeplacement(this);
-		this.panelCourbe = new PanelDeControleDeLaCourbe();
-		this.paneGauche.add(panelConnexion,BorderLayout.NORTH);
 		
+		this.panelCourbe = new PanelDeControleDeLaCourbe(this);
+		
+		this.paneGauche.add(panelConnexion,BorderLayout.NORTH);
 		this.paneGauche.add(panelDeplacement,BorderLayout.CENTER);
 		this.paneGauche.add(panelCourbe,BorderLayout.SOUTH);
 		
 		//Configuration du panel de droite
 		this.paneDroit = new JPanel();
-		this.paneDroit.setLayout(new GridLayout(2,2));
+		this.paneDroit.setLayout(new GridLayout(2,1));
+		
+		//fenetre graphique
+		this.graphique = new Graphique();
+        
+        //graphique.ajoutPoint(10.0, 10.0);
+        
+        JPanel panelGraphique = new JPanel();
+        panelGraphique.setLayout(new java.awt.BorderLayout());        
+        panelGraphique.add(graphique.obtenirChartPanel(),BorderLayout.CENTER);
+        panelGraphique.validate();
 		
 		//Ajout des éléments du panel de droite
-		this.pane4 = new PanelDeTracage();
-		this.pane5 = new PanelDeLAccelerometre();
-		this.pane6 = new PanelDeLaCamera();
-		this.pane7 = new PanelDeDetectionViaCapteurIR();
-		this.paneDroit.add(pane4);
-		this.paneDroit.add(pane5);
-		this.paneDroit.add(pane6);
-		this.paneDroit.add(pane7);
+		//this.pane4 = new PanelDeTracage();
+		//this.paneDroit.add(panelGraphique);
+		//this.paneDroit.add(pane5);
+		/*this.paneDroit.add(pane6);
+		this.paneDroit.add(pane7);*/
 		
 		//Formation de la fenêtre finale
 		this.fenetre.getContentPane().add(paneGauche,BorderLayout.WEST);
-		this.fenetre.getContentPane().add(paneDroit);
+		this.fenetre.getContentPane().add(panelGraphique);
 		this.fenetre.setVisible(true);
+		
+		
+        
+        //test observeur
+        /*this.controler.ajouterObserver(graphique);
+        this.controler.notifierObserver(10.0, 3.0);
+        this.controler.notifierObserver(5.0, -4.0);*/
+		
 	}
 
 	
@@ -100,6 +120,7 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		{
 			this.controler = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());
 			JOptionPane.showMessageDialog(this.fenetre, "Connexion Réussie", "Information", JOptionPane.INFORMATION_MESSAGE);
+			this.controler.ajouterObserver(this.graphique);
 		}
 		else JOptionPane.showMessageDialog(this.fenetre, "Echec de Connexion", "Information", JOptionPane.ERROR_MESSAGE);
 	}
@@ -111,10 +132,12 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 			int vitesse;
 			
 			try{
-				vitesse =  Integer.parseInt(this.panelConnexion.getPanelDistance().getVit().getText());
+				vitesse =  Integer.parseInt(this.panelCourbe.obtenirVitesse());
 			}
 			catch (NumberFormatException e)
 			{
+				vitesse = VITESSE_PAR_DEFAUT;
+			} catch (TexteVideVitesseException e) {
 				vitesse = VITESSE_PAR_DEFAUT;
 			}
 			
@@ -181,9 +204,27 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 			traiterDeplacement(((JButton) event.getSource()).getText().charAt(0));
 		}
 		
+		if (source.getParent() == this.panelCourbe.obtenirPaneBouton())
+		{
+			traiterGoTo();
+		}
+		
 		
 	}
 
+
+	private void traiterGoTo() {
+		
+		try {
+			int x = Integer.parseInt(this.panelCourbe.obtenirX());
+			int y = Integer.parseInt(this.panelCourbe.obtenirY());
+		} catch (NumberFormatException | TexteVideXException | TexteVideYException e) {
+			JOptionPane.showMessageDialog(this.fenetre, "Vous devez rentrer des nombres", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		//TODO ajouter appel methode goto
+		
+	}
 
 	@Override
 	public void notifierActionMouvement(Direction direction) {

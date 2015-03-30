@@ -11,7 +11,12 @@ public enum EpuckOrder {
 	AIDE("H"),
 	TOUPIE("D"),
 	PROXIMITE("N"),
-	ACCELEROMETRE("A");
+	ACCELEROMETRE("A"),
+	AVANCERVALEURDEFAUT("AD"),
+	RECULER("RD"),
+	TOURNERDROITE("DD"),
+	TOURNERGACHE("DG"),
+	DEPLACEMENTPARCOORDONNEE("CO");
 	
 	private final String ordre;
 	

@@ -8,27 +8,21 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
 import Logique.SerialPortConnexion;
-import Mash.GestionnaireTramesMashEtRobots;
-import Mash.InformationsDonneesVoisin;
-import Mash.InformationsDonneesVoisinPercu;
+
 
 public class LecteurTramesMASH extends Thread 
 {
 	
-	private SerialPortConnexion portLecture;
 	private InputStream in;
 	private BufferedReader br;
-	private GestionnaireTramesMashEtRobots gestionListe;
-
+	private EpuckAvecThread robot;
 	
-	public LecteurTramesMASH (String name, String port)
+	public LecteurTramesMASH (String name, InputStream i,EpuckAvecThread r)
 	{
 		super(name);
-		this.portLecture = new SerialPortConnexion(port);
-		this.portLecture.ouvrirPort();
-		this.gestionListe = new GestionnaireTramesMashEtRobots();
-		
-		this.in = this.portLecture.obtenirConnexionEntree();
+
+		this.in = i;
+		this.robot=r;
 		try 
 		{
 			this.br= new BufferedReader(new InputStreamReader(in, "US-ASCII"));
@@ -38,35 +32,23 @@ public class LecteurTramesMASH extends Thread
 			System.out.println("Problème création robot");
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public void run()
 	{
-		
-		/*Tant que le processus fonctionne il lit dans le buffer*/
-		while(true)
+
+		try
 		{
-			try
-			 {
 				String line = "";
-				/*Si le buffer n'est pas vide on lit sinon on attend */
 				 if(br.ready()) 
 				 {
-					 /*On lit jusqu'à ce que le buffer soit vide*/
-					 while(true)
-					 {
-						line = br.readLine();
-						if(line == null)
-						 {
-							 break;/*buffer vide*/
-						 }
-					    gestionListe.ajouterTrameMashRecu(line);
-					}
+					line = br.readLine();
+					this.robot.renvoieDonneRecu(line);
+					
 				 }
-			 }
-			catch (IOException e) {System.out.println("Problème lecture (aide)");} 
 		}
+		catch (IOException e) {System.out.println("Problème lecture (aide)");} 
+		
 
 	}
 	

@@ -6,10 +6,5 @@ public interface InformationsTramesMASH
 	public static final byte EN_TETE_0_2 = 02; 
 	
 	
-	public String envoieChainePourRobot();
-	
-	public void retourTrameRobots(String info) ;
-
-	public String reconstitutionInformationTrameMASH();
-	public int valeurTrameRetour();
+	public String getData();
 }

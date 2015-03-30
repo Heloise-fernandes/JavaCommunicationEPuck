@@ -1,8 +1,7 @@
 package Mash;
 
-public class InformationsDonneesVoisin implements InformationsTramesMASH 
+public class InformationDonneeDefault implements InformationsTramesMASH
 {
-
 
 	public static final int OCTETS_POSITION_FONCTION = 8;
 	public static final int OCTETS_TAILLE_FONCTION  = 2;
@@ -33,7 +32,7 @@ public class InformationsDonneesVoisin implements InformationsTramesMASH
 	private String data;
 	private Voisin voisin;
 	
-	public InformationsDonneesVoisin(String info) 
+	public InformationDonneeDefault(String info) 
 	{
 		super();
 		this.fonction= info.substring(OCTETS_POSITION_FONCTION, OCTETS_POSITION_FONCTION+OCTETS_TAILLE_FONCTION);
@@ -41,35 +40,9 @@ public class InformationsDonneesVoisin implements InformationsTramesMASH
 		this.data= info.substring(OCTETS_POSITION_DEBUT_DONNEES, info.length()+OCTETS_POSITION_DEBUT_DONNEES);
 	}
 	
-	/*Envoie la chaine de demande de recherche robot par id, id en base 10*/
-	public String envoieChainePourRobot()
+	public String getData()
 	{
-		String chaineAEnvoyer = "";
-		chaineAEnvoyer = chaineAEnvoyer+this.fonction+",";
-		chaineAEnvoyer = chaineAEnvoyer+this.sousfonction+",";
-		chaineAEnvoyer = chaineAEnvoyer+Integer.parseInt(this.data,16);
-		
-		return chaineAEnvoyer;
+		return this.data;
 	}
-	
-	public void retourTrameRobots(String info) 
-	{
-		this.voisin= new Voisin(Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT, OCTETS_POSITION_DEBUT_DONNEES_ROBOT+6)),Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT+6, OCTETS_POSITION_DEBUT_DONNEES_ROBOT+12)),Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT+18, OCTETS_POSITION_DEBUT_DONNEES_ROBOT+24)),Integer.parseInt(info.substring(OCTETS_POSITION_DEBUT_DONNEES_ROBOT+24, info.length())));
-	}
-	
-	public String reconstitutionInformationTrameMASH()
-	{
-		String information=OCTETS_FONCTION_SS_FONCTION_RETOUR;
-		information=information+this.voisin.toHexaString();
-		return information;
-	}
-	
-	public int valeurTrameRetour()
-	{
-		int valeur=0;
-		valeur = this.voisin.valeurVoisin()+FONCTION+SS_FONCTION;
-		return valeur;
-	}
-
 
 }

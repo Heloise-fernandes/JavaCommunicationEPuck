@@ -1,5 +1,5 @@
 package Mash;
-
+/**
 import java.util.ArrayList;
 
 public class InformationsDonneesVoisinPercu implements InformationsTramesMASH
@@ -76,4 +76,4 @@ public class InformationsDonneesVoisinPercu implements InformationsTramesMASH
 	}
 	
 	
-}
+}*/

@@ -31,40 +31,20 @@ public class TramesMASH
 	
 		
 		public TramesMASH(String info)
-		{
-			
-			
+		{			
 			this.enTete = info.substring(OCTET_POSITION_EN_TETE, OCTET_POSITION_EN_TETE+OCTET_TAILE_EN_TETE);
 			this.tailleInfo = info.substring(OCTETS_POSITION_TAILLE_INFO, OCTETS_POSITION_TAILLE_INFO+OCTETS_TAILLE_TAILLE_INFO);
 			this.chekSum=info.substring(info.length()+OCTETS_POSITION_CKSUM, info.length()+OCTETS_POSITION_CKSUM+OCTETS_TAILLE_CKSUM);
 			this.enQueue=info.substring(info.length()+OCTETS_POSITION_EN_QUEUE, info.length());
 		
+			this.donnees = (InformationsTramesMASH) new InformationDonneeDefault(info);
 			
-			if (info.substring(OCTETS_POSITION_FONCTION, OCTETS_POSITION_FONCTION+OCTETS_TAILLE_FONCTION).equals(BIT_DONNEE_0_1))
-			{
-				if (info.substring(OCTETS_POSITION_SS_FONCTION, OCTETS_POSITION_SS_FONCTION+OCTETS_TAILLE_SS_FONCTION).equals(BIT_DONNEE_0_1))
-				{
-					this.donnees = new InformationsDonneesVoisin(info);
-				}
-				else
-				{
-					this.donnees = new InformationsDonneesVoisinPercu(info);
-				}
-			}
 				
 		}
 		
-		public String TramesMASHEncapsulation(String tramesRecu)
+		public InformationsTramesMASH getDonne()
 		{
-		
-			String TramesRetour ="";
-			
-			TramesRetour = this.enTete+this.donnees.valeurTrameRetour();
-			TramesRetour = TramesRetour + Integer.toHexString(this.donnees.valeurTrameRetour());
-			TramesRetour = TramesRetour + this.donnees.reconstitutionInformationTrameMASH();
-			TramesRetour = TramesRetour + Integer.toHexString( this.donnees.valeurTrameRetour()%((int)Math.pow(2.0, 16.0)));
-			TramesRetour = TramesRetour + this.enQueue;
-			return TramesRetour;
-				
+			return this.donnees;
 		}
+
 }

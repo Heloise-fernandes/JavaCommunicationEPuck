@@ -6,8 +6,6 @@ import javax.swing.SwingUtilities;
 import IHM.*;
 import Logique.EPuck;
 import Logique.SerialPortConnexion;
-import Mash.InformationsDonneesVoisin;
-import Mash.InformationsDonneesVoisinPercu;
 import Mash.InformationsTramesMASH;
 
 public class ProgrammePrincipale 
@@ -35,37 +33,10 @@ public class ProgrammePrincipale
 	public static final String BIT_DONNEE_0_1 = "01";
 	public static final String BIT_DONNEE_0_2 = "02";
 
-	public static void main(String[] args) 
-	{
-		
-		String addVoisin1="F1";
-
-		
-		/*Convertie une chaine hexa decimal en int*/
-		int addVoisinInt = Integer.parseInt(addVoisin,16);
-		/*Convertie un int en une chaine hexa*/
-		String chainereconvertis = Integer.toHexString(addVoisinInt);
-
-		
-		String infoVoisin= String.format("%02x", new BigInteger(1, addVoisin.getBytes()));
-
-		
-		System.out.println(infoVoisin);
-		System.out.println(addVoisinInt);
-		System.out.println(chainereconvertis);
-		System.out.println(infoVoisin.length());
-
-		/*decimal vers binaire*/
-		/*System.out.println("--------------TESTCHAINEHEXA----------------");
-		testchaineHexa();
-		System.out.println("-------------TESTCHAINEHEXAV2---------------");
-		System.out.println("FONCTION/SSFONCTION : 0101");
-		testchaineHexaV2("01FE00000101123002021010");
-		System.out.println("FONCTION/SSFONCTION : 0102");
-		testchaineHexaV2("01FE00000102123002021010");*/
-
-		
-	}
+	
+	
+	
+	
 	/*transforme un entier en binaire*/
 	
 	public static void testchaineHexaV2(String info) 
@@ -134,7 +105,35 @@ public class ProgrammePrincipale
 
 	}
 	
-	
+	public void bordel()
+	{
+
+		String addVoisin="F1";
+
+		
+		/*Convertie une chaine hexa decimal en int*/
+		int addVoisinInt = Integer.parseInt(addVoisin,16);
+		/*Convertie un int en une chaine hexa*/
+		String chainereconvertis = Integer.toHexString(addVoisinInt);
+
+		
+		String infoVoisin= String.format("%02x", new BigInteger(1, addVoisin.getBytes()));
+
+		
+		System.out.println(infoVoisin);
+		System.out.println(addVoisinInt);
+		System.out.println(chainereconvertis);
+		System.out.println(infoVoisin.length());
+
+		/*decimal vers binaire*/
+		/*System.out.println("--------------TESTCHAINEHEXA----------------");
+		testchaineHexa();
+		System.out.println("-------------TESTCHAINEHEXAV2---------------");
+		System.out.println("FONCTION/SSFONCTION : 0101");
+		testchaineHexaV2("01FE00000101123002021010");
+		System.out.println("FONCTION/SSFONCTION : 0102");
+		testchaineHexaV2("01FE00000102123002021010");*/
+	}
 	
 	public void testchaineCarac() 
 	{

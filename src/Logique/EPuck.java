@@ -5,16 +5,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import InterfaceControleurIHM.ObservableEpuck;
+import InterfaceControleurIHM.ObservateurEPuck;
 
 /**
  * Classe modélisant le robot ePuck. On peut lui envoyer des ordres.
  * @author Maxime/ it's me Héloïse
  */
-public class EPuck 
+public class EPuck implements ObservableEpuck
 {
 	private InputStream in;
 	private OutputStream out;
 	private BufferedReader br;
+	private List<ObservateurEPuck> listeObservateur;
 	
 	/**
 	 * Constructeur
@@ -24,6 +30,7 @@ public class EPuck
 	 */
 	public EPuck(InputStream in, OutputStream out)
 	{
+		this.listeObservateur=new ArrayList<ObservateurEPuck>();
 		this.in=in;
 		this.out=out;
 		try 
@@ -285,6 +292,7 @@ public class EPuck
 	{
 		/*Voir groupe 2 pour reccuoperer les coordonnée*/
 
+		//TODO notifier les observateurs
 		try
 		 {
 			if(br.ready())
@@ -328,6 +336,32 @@ public class EPuck
 		/*evalue en tête*/
 		/*renvoie information au robot*/
 		return null;
+	}
+
+
+	@Override
+	public void ajouterObserver(ObservateurEPuck o) {
+		System.out.println("observateur ajouté");
+		this.listeObservateur.add(o);
+	}
+
+
+	@Override
+	public void notifierObserver(double x, double y) {
+		System.out.println("Je rentre dans la méthode notifierObserver");
+		for(ObservateurEPuck obs : listeObservateur)
+		{
+			System.out.println("Je lance actualiser");
+			obs.actualiser( x,  y);
+		}
+		
+	}
+
+
+	@Override
+	public void supprimerObserver(ObservateurEPuck o) {
+		this.listeObservateur.remove(o);
+		
 	}
 	
 }

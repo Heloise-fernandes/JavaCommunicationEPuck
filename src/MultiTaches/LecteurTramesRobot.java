@@ -37,7 +37,7 @@ public class LecteurTramesRobot extends Thread
 		 {
 			if(br.ready())
 			 {
-				this.epuck.renvoieDonneRecu(br.readLine());
+				this.epuck.trasfereDesDonneesRecusVersMash(br.readLine());
 			 }
 		 }
 		 catch (IOException e) 

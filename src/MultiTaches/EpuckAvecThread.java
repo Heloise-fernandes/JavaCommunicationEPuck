@@ -30,33 +30,42 @@ public class EpuckAvecThread
 		{
 			this.port=p;
 			this.port1=p1;
+			this.identifiant = 80+i; 			
+		}
+		
+
+		public void start()
+		{
 			this.port.ouvrirPort();
 			this.port1.ouvrirPort();
-			this.identifiant = 80+i; 
 			//this.envoieTramesRobot = new EnvoieTramesRobot("retourTramesRobot", port.obtenirConnexionSortie());
 			this.lecteurTramesRobot = new LecteurTramesRobot("lecteurTrameRobot",port.obtenirConnexionEntree(), this);
 			this.envoieTramesMASH = new EnvoieTramesMASH("EnvoieTramesMASH", port1.obtenirConnexionSortie());
 			//this.lecteurTramesMASH = new LecteurTramesMASH("lecteurTramesMASH",port1.obtenirConnexionEntree(), this);
-			
-		}
-
-		public void start()
-		{
 			this.lecteurTramesRobot.run();
-			
 		}
-		public void renvoieDonneRecu(String chaineretour)
+		
+		
+		public void close()
+		{
+			this.port.fermerPort();
+			this.port1.fermerPort();
+		}
+		
+		
+		public void trasfereDesDonneesRecusVersMash(String chaineretour)
 		{
 			TramesMASH trame = new TramesMASH(chaineretour);
 			
 			if(trame.getDonne().getData().substring(0,2).equals("co"))
 				//notify
+				System.out.println("A notifier");
 			this.envoieTramesMASH.redirectionTrames(chaineretour);
 			System.out.println(trame);
 		}
 		
 		
-		public void envoieCommande(EpuckOrder o, int i,int x,int y)
+		public void envoieDOrdreAuRobot(EpuckOrder o, int i,int x,int y)
 		{
 			this.envoieTramesRobot.envoieOrdre(o, i,x ,y);
 		}

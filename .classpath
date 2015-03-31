@@ -7,5 +7,11 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="CommunicationJavaRXTX/rxtx-2.2pre2-bins/win64"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="jcommon-1.0.23/jcommon-1.0.23/jcommon-1.0.23-bundle.jar"/>
+	<classpathentry kind="lib" path="jcommon-1.0.23/jcommon-1.0.23/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="jcommon-1.0.23/jcommon-1.0.23/jcommon-xml-1.0.23-bundle.jar"/>
+	<classpathentry kind="lib" path="jcommon-1.0.23/jcommon-1.0.23/jcommon-xml-1.0.23.jar"/>
+	<classpathentry kind="lib" path="jfreechart-1.0.19/jfreechart-1.0.19/jfreechart-1.0.19-bundle.jar"/>
+	<classpathentry kind="lib" path="jfreechart-1.0.19/jfreechart-1.0.19/jfreechart-1.0.19-demo.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

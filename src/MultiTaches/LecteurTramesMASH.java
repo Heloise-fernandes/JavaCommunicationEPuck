@@ -43,7 +43,7 @@ public class LecteurTramesMASH extends Thread
 				 if(br.ready()) 
 				 {
 					line = br.readLine();
-					this.robot.renvoieDonneRecu(line);
+					this.robot.trasfereDesDonneesRecusVersMash(line);
 					
 				 }
 		}

@@ -3,10 +3,13 @@ import java.math.BigInteger;
 
 import javax.swing.SwingUtilities;
 
+import org.jfree.xml.generator.JavaSourceCollector;
+
 import IHM.*;
 import Logique.EPuck;
 import Logique.SerialPortConnexion;
 import Mash.InformationsTramesMASH;
+import MultiTaches.EpuckAvecThread;
 
 public class ProgrammePrincipale 
 {
@@ -35,7 +38,13 @@ public class ProgrammePrincipale
 
 	
 	
-	
+	public static void main (String[] args)
+	{
+		SwingUtilities.invokeLater(new InterfacePrincipale());
+		/*SerialPortConnexion port = new SerialPortConnexion("COM5");
+		EpuckAvecThread epuck = new EpuckAvecThread(4, port,port );
+		epuck.start();*/
+	}
 	
 	/*transforme un entier en binaire*/
 	

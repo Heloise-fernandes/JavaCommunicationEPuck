@@ -74,7 +74,6 @@ public class EnvoieTramesRobot extends Thread
 		try
 		{
 			out.write((data).getBytes("US-ASCII"));
-
 		}
 		catch (IOException e) 
 		{

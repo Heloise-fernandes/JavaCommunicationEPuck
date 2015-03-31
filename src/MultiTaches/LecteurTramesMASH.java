@@ -4,10 +4,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
-import Logique.SerialPortConnexion;
+import InterfaceControleurIHM.ObservableEpuck;
+import InterfaceControleurIHM.ObservateurEPuck;
 
 
 public class LecteurTramesMASH extends Thread 
@@ -25,7 +34,7 @@ public class LecteurTramesMASH extends Thread
 		this.robot=r;
 		try 
 		{
-			this.br= new BufferedReader(new InputStreamReader(in, "US-ASCII"));
+			this.br = new BufferedReader(new InputStreamReader(in, "US-ASCII"));
 		} 
 		catch (UnsupportedEncodingException e) 
 		{
@@ -37,19 +46,38 @@ public class LecteurTramesMASH extends Thread
 	public void run()
 	{
 
-		try
+		System.out.println("je lit les trames du mash");
+		while(true)
 		{
-				String line = "";
-				 if(br.ready()) 
-				 {
-					line = br.readLine();
-					this.robot.trasfereDesDonneesRecusVersMash(line);
+			try
+			 {
+				if(br.ready())
+				{
+					String line = "";
 					
-				 }
-		}
-		catch (IOException e) {System.out.println("Problème lecture (aide)");} 
-		
-
+					line = br.readLine();
+					if(line == null)
+					{
+						System.out.println("probleme");
+						break;
+					}
+					 
+					if(line.equals("\n"))
+						break;
+					System.out.println(line);
+					this.robot.trasfereDesDonneesRecusVersMash(line);
+					  
+				}
+				
+			 }
+			 catch (IOException e) 
+			 {
+				 System.out.println("Problème entrée");
+				 e.printStackTrace();
+		     }
+	    }
+		System.out.println("fin");
+					
 	}
 	
 	

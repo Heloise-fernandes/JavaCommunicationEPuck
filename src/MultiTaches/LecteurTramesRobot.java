@@ -6,6 +6,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import InterfaceControleurIHM.ObservableEpuck;
+import InterfaceControleurIHM.ObservateurEPuck;
 
 public class LecteurTramesRobot extends Thread 
 {
@@ -33,18 +44,37 @@ public class LecteurTramesRobot extends Thread
 
 	public void run()
 	{
-		try
-		 {
-			if(br.ready())
+		System.out.println("je lit les trames du robot");
+		while(true)
+		{
+			try
 			 {
-				this.epuck.trasfereDesDonneesRecusVersMash(br.readLine());
+				if(br.ready())
+				{
+					String line = "";
+					
+					line = br.readLine();
+					if(line == null)
+					{
+						System.out.println("probleme");
+						break;
+					}
+					 
+					if(line.equals("\n"))
+						break;
+					System.out.println(line);
+					this.epuck.trasfereDesDonneesRecusVersMash(line);
+					  
+				}
+				
 			 }
-		 }
-		 catch (IOException e) 
-		 {
-			 System.out.println("Problème entrée (aide)");
-			 e.printStackTrace();
-	     }
+			 catch (IOException e) 
+			 {
+				 System.out.println("Problème entrée");
+				 e.printStackTrace();
+		     }
+	    }
+		System.out.println("fin");
 	}
 
 

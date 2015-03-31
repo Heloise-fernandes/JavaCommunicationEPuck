@@ -39,10 +39,51 @@ public class ProgrammePrincipale
 	
 	public static void main (String[] args)
 	{
-		SwingUtilities.invokeLater(new InterfacePrincipale());
-		/*SerialPortConnexion port = new SerialPortConnexion("COM5");
-		EpuckAvecThread epuck = new EpuckAvecThread(4, port,port );
-		epuck.start();*/
+		//SwingUtilities.invokeLater(new InterfacePrincipale());
+
+				//EpuckAvecThread epuck = new EpuckAvecThread(4, "COM5","COM10" );
+				//epuck.start();
+				
+				
+				/*SerialPortConnexion port = new SerialPortConnexion("COM5");
+				port.ouvrirPort();
+				
+				try 
+				{
+					BufferedReader br = new BufferedReader(new InputStreamReader(port.obtenirConnexionEntree(), "US-ASCII"));
+					port.obtenirConnexionSortie().write(("blopblop\n\r").getBytes("US-ASCII"));
+					while(true)
+					{
+						try {
+							if(br.ready())
+							{
+								String line = "";
+								
+								line = br.readLine();
+								if(line == null)
+								{
+									System.out.println("probleme");
+									break;
+								}
+								 
+								if(line.equals("\n"))
+									break;
+								System.out.println(line);
+								
+							}
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
+			
+			/*transforme un entier en binaire*/
 	}
 	
 	/*transforme un entier en binaire*/

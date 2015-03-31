@@ -10,6 +10,7 @@ import java.util.List;
 
 import InterfaceControleurIHM.ObservableEpuck;
 import InterfaceControleurIHM.ObservateurEPuck;
+import Mash.TramesMASH;
 
 /**
  * Classe modélisant le robot ePuck. On peut lui envoyer des ordres.
@@ -371,6 +372,13 @@ public class EPuck implements ObservableEpuck
 			out.write((EpuckOrder.AVANCERTOUTDROIT+","+vitesseRg+","+vitesseRd+"\n\r").getBytes("US-ASCII"));
 		}
 		catch (IOException e) {System.out.println("Problème sortie (courbe)"); e.printStackTrace();}
+	}
+
+
+	@Override
+	public void notifierObserver(TramesMASH trame) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

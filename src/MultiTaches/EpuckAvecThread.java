@@ -7,13 +7,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
+import InterfaceControleurIHM.ObservableEpuck;
+import InterfaceControleurIHM.ObservateurEPuck;
 import Logique.EpuckOrder;
 import Logique.SerialPortConnexion;
 import Mash.TramesMASH;
 
 
-public class EpuckAvecThread 
+public class EpuckAvecThread implements ObservableEpuck
 {
 	
 		
@@ -25,24 +28,38 @@ public class EpuckAvecThread
 		private LecteurTramesMASH lecteurTramesMASH;
 		private SerialPortConnexion port1;
 		private SerialPortConnexion port;
+		private List<ObservateurEPuck> listeObservateur;
+		
 
-		public EpuckAvecThread(int i, SerialPortConnexion p, SerialPortConnexion p1)
+		public EpuckAvecThread(int i, String p, String p1)
 		{
-			this.port=p;
-			this.port1=p1;
-			this.identifiant = 80+i; 			
+			
+			this.listeObservateur=new ArrayList<ObservateurEPuck>();
+			this.port= new SerialPortConnexion(p);
+			this.port1= new SerialPortConnexion(p1);
+			System.out.println("port drée");
+			this.identifiant = 80+i; 
+			
+			this.port.ouvrirPort();
+			this.port1.ouvrirPort();
+
+			System.out.println("les deux ports sont ouvert\n");
+			
+			this.envoieTramesRobot = new EnvoieTramesRobot("retourTramesRobot", port.obtenirConnexionSortie());
+			this.lecteurTramesRobot = new LecteurTramesRobot("lecteurTrameRobot",port.obtenirConnexionEntree(), this);
+			this.envoieTramesMASH = new EnvoieTramesMASH("EnvoieTramesMASH", port1.obtenirConnexionSortie());
+			this.lecteurTramesMASH = new LecteurTramesMASH("lecteurTramesMASH",port1.obtenirConnexionEntree(), this);
+			
+			System.out.println("thread creer\n");
 		}
 		
 
 		public void start()
 		{
-			this.port.ouvrirPort();
-			this.port1.ouvrirPort();
-			//this.envoieTramesRobot = new EnvoieTramesRobot("retourTramesRobot", port.obtenirConnexionSortie());
-			this.lecteurTramesRobot = new LecteurTramesRobot("lecteurTrameRobot",port.obtenirConnexionEntree(), this);
-			this.envoieTramesMASH = new EnvoieTramesMASH("EnvoieTramesMASH", port1.obtenirConnexionSortie());
-			//this.lecteurTramesMASH = new LecteurTramesMASH("lecteurTramesMASH",port1.obtenirConnexionEntree(), this);
-			this.lecteurTramesRobot.run();
+			this.lecteurTramesRobot.start();
+			System.out.println("blop");
+			this.lecteurTramesMASH.start();
+			System.out.println("thread en fonctionnement\n");
 		}
 		
 		
@@ -61,7 +78,6 @@ public class EpuckAvecThread
 				//notify
 				System.out.println("A notifier");
 			this.envoieTramesMASH.redirectionTrames(chaineretour);
-			System.out.println(trame);
 		}
 		
 		
@@ -77,6 +93,43 @@ public class EpuckAvecThread
 			this.envoieTramesRobot.envoieOrdre(trame.getDonne().getData());
 		}
 
+
+		@Override
+		public void ajouterObserver(ObservateurEPuck o) 
+		{
+			System.out.println("observateur ajouté");
+			this.listeObservateur.add(o);
+			
+		}
+
+
+		@Override
+		public void notifierObserver(TramesMASH trame) 
+		{
+			System.out.println("Je rentre dans la méthode notifierObserver");
+			for(ObservateurEPuck obs : this.listeObservateur)
+			{
+				System.out.println("Je lance actualiser");
+				String[] coordonnées = new String[3];
+				coordonnées = trame.getDonne().getData().split(",");
+				obs.actualiser(Float.parseFloat(coordonnées[1]),Float.parseFloat(coordonnées[2]));
+			}
+			
+		}
+
+		@Override
+		public void supprimerObserver(ObservateurEPuck o) 
+		{
+			this.listeObservateur.remove(o);
+			
+		}
+
+
+		@Override
+		public void notifierObserver(double x, double y) {
+			// TODO Auto-generated method stub
+			
+		}
 
 
 }

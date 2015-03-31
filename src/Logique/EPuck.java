@@ -364,4 +364,13 @@ public class EPuck implements ObservableEpuck
 		
 	}
 	
+	public void courbe(double vitesseRg, double vitesseRd)
+	{
+		try
+		{
+			out.write((EpuckOrder.AVANCERTOUTDROIT+","+vitesseRg+","+vitesseRd+"\n\r").getBytes("US-ASCII"));
+		}
+		catch (IOException e) {System.out.println("Problème sortie (courbe)"); e.printStackTrace();}
+	}
+	
 }

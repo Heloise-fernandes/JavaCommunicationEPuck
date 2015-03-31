@@ -1,9 +1,8 @@
+package Lunch;
 
 import java.math.BigInteger;
 
 import javax.swing.SwingUtilities;
-
-import org.jfree.xml.generator.JavaSourceCollector;
 
 import IHM.*;
 import Logique.EPuck;

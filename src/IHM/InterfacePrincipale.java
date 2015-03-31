@@ -1,6 +1,7 @@
 package IHM;
 
 
+import Logique.Courbe;
 import Logique.Direction;
 import Logique.EPuck;
 import Logique.SerialPortConnexion;
@@ -11,19 +12,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.io.Closeable;
 
 import javax.swing.*;
 
-import org.jfree.chart.ChartPanel;
-import org.jfree.ui.RefineryUtilities;
-
 import Dessin.Graphique;
 import Exception.TexteVideCOMException;
+import Exception.TexteVideRayonCourbureException;
 import Exception.TexteVideVitesseException;
 import Exception.TexteVideXException;
 import Exception.TexteVideYException;
-import InterfaceControleurIHM.ObservableEpuck;
-import InterfaceControleurIHM.ObservateurEPuck;
 import InterfaceControleurIHM.Vue;
 
 
@@ -44,6 +43,8 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 
 	private Graphique graphique;
 	
+	private static SerialPortConnexion port;
+	
 	public InterfacePrincipale()
 	{
 		this.controler=null;
@@ -56,11 +57,13 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	public void run()
 	{	
 		
+		GestionnaireFenetre gf = new GestionnaireFenetre();
+		
 		//Configuration de la fenêtre JFrame
 		this.fenetre = new JFrame();
 		this.fenetre.setSize(800,450);
 		this.fenetre.getContentPane().setLayout(new BorderLayout());
-		this.fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.fenetre.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		
 		//Configuration du panel de gauche
 		this.paneGauche = new JPanel();
@@ -99,6 +102,7 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		this.paneDroit.add(pane7);*/
 		
 		//Formation de la fenêtre finale
+        this.fenetre.addWindowListener(gf);
 		this.fenetre.getContentPane().add(paneGauche,BorderLayout.WEST);
 		this.fenetre.getContentPane().add(panelGraphique);
 		this.fenetre.setVisible(true);
@@ -115,7 +119,7 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	
 	public void traiterConnexion(String portCOM)
 	{
-		SerialPortConnexion port = new SerialPortConnexion(portCOM);
+		port = new SerialPortConnexion(portCOM);
 		if (port.ouvrirPort())
 		{
 			this.controler = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());
@@ -204,14 +208,64 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 			traiterDeplacement(((JButton) event.getSource()).getText().charAt(0));
 		}
 		
-		if (source.getParent() == this.panelCourbe.obtenirPaneBouton())
+		if (source.getParent() == this.panelCourbe.obtenirPaneBoutonGoTo())
 		{
 			traiterGoTo();
 		}
 		
 		
+		if (source.getParent() == this.panelCourbe.obtenirPaneBoutonCourbe())
+		{
+			traiterCourbe();
+		}
+		
+		
 	}
 
+
+	private void traiterCourbe() 
+	{
+		int vitesse;
+		int rayonCourbure;
+		
+		try {
+			vitesse = Integer.parseInt(this.panelCourbe.obtenirVitesse());
+		}
+		catch (TexteVideVitesseException e)
+		{
+			vitesse = VITESSE_PAR_DEFAUT;
+		}
+		
+		try {
+			
+			
+			rayonCourbure = Integer.parseInt(this.panelCourbe.obtenirRayonCourbure());
+			
+			System.out.println("je créer la courbe");
+			Courbe courbe = new Courbe(rayonCourbure,vitesse);
+			System.out.println("courbe créé");
+			
+			double vitRoueGauche = courbe.obtenirVitesseRoueGauche();
+			System.out.println("vit roue G faite");
+			double vitRoueDroite = courbe.obtenirVitesseRoueDroite();
+			System.out.println("vit rooue D faite");
+			
+			System.out.println("vitRoueG : "+vitRoueGauche);
+			System.out.println("viteRoueD : "+vitRoueDroite);
+			
+			this.controler.courbe(vitRoueGauche, vitRoueDroite);
+			
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this.fenetre, "Pas vide Vous devez rentrer un rayon de courbure sous forme d'entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+		} 
+		catch (TexteVideRayonCourbureException e)
+		{
+			JOptionPane.showMessageDialog(this.fenetre, "VIDE Vous devez rentrer un rayon de courbure sous forme d'entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		
+		
+	}
 
 	private void traiterGoTo() {
 		
@@ -230,6 +284,11 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	public void notifierActionMouvement(Direction direction) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static SerialPortConnexion getport()
+	{
+		return port;
 	}
 
 

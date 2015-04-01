@@ -31,6 +31,7 @@ public class EnvoieTramesRobot extends Thread
 	{
 		try
 		{
+			System.out.println(l[0]+","+l[1]+","+l[2]);
 			if(l[0].equals(EpuckOrder.ACCELEROMETRE))
 				out.write((EpuckOrder.ACCELEROMETRE+"\n\r").getBytes("US-ASCII"));
 			

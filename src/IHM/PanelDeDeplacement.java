@@ -12,6 +12,12 @@ import javax.swing.*;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+/**
+ * Construit l'affichage du panel de déplacement et ajoute un auditeur d'evenement sur chaque bouton.
+ * Construit avec WindowBuilder
+ * @author Maxime
+ *
+ */
 public class PanelDeDeplacement extends JPanel
 {
 	private JButton haut;

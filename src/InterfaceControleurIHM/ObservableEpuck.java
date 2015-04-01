@@ -2,6 +2,11 @@ package InterfaceControleurIHM;
 
 import Mash.TramesMASH;
 
+/**
+ * Interface permettant au robot de notifier sa position
+ * @author Maxime
+ *
+ */
 public interface ObservableEpuck {
 	
 	public void ajouterObserver(ObservateurEPuck o);

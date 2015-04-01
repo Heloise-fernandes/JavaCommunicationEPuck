@@ -12,7 +12,12 @@ import Exception.TexteVideVitesseException;
 import Exception.TexteVideXException;
 import Exception.TexteVideYException;
 
-public class PanelDeControleDeLaCourbe extends JPanel
+/**
+ * 
+ * @author Maxime
+ *
+ */
+public class PanelCourbeEtGoTo extends JPanel
 {
 	private JLabel allerA;
 	private JLabel x;
@@ -32,7 +37,11 @@ public class PanelDeControleDeLaCourbe extends JPanel
 	private JPanel b4;
 	private JPanel b5;
 	
-	public PanelDeControleDeLaCourbe(ActionListener listener)
+	/**
+	 * Constructeur
+	 * @param listener auditeur d'évenement
+	 */
+	public PanelCourbeEtGoTo(ActionListener listener)
 	{
 		this.allerA = new JLabel("Aller à :");
 		this.x = new JLabel("x");
@@ -100,6 +109,11 @@ public class PanelDeControleDeLaCourbe extends JPanel
 		
 	}
 	
+	/**
+	 * Permet d'obtenir la vitesse entrée par l'iutilisateur
+	 * @return la vitesse
+	 * @throws TexteVideVitesseException si le champ est vide
+	 */
 	public String obtenirVitesse() throws TexteVideVitesseException
 	{
 		if ((this.vit.getText().equalsIgnoreCase("")))
@@ -107,6 +121,11 @@ public class PanelDeControleDeLaCourbe extends JPanel
 		else return this.vit.getText();
 	}
 	
+	/**
+	 * Permet d'obtenir la coordonnée x entrée par l'utilisater
+	 * @return x
+	 * @throws TexteVideXException si le champ est vide
+	 */
 	public String obtenirX() throws TexteVideXException
 	{
 		if ((this.x1.getText().equalsIgnoreCase("")))
@@ -114,6 +133,11 @@ public class PanelDeControleDeLaCourbe extends JPanel
 		else return this.x1.getText();
 	}
 	
+	/**
+	 * Permet d'obtenir la coordonnée y entrée par l'utilisater
+	 * @return y
+	 * @throws TexteVideYException si le champ est vide
+	 */
 	public String obtenirY() throws TexteVideYException
 	{
 		if ((this.y1.getText().equalsIgnoreCase("")))
@@ -121,6 +145,11 @@ public class PanelDeControleDeLaCourbe extends JPanel
 		else return this.y1.getText();
 	}
 	
+	/**
+	 * Permet d'obtenir le rayon de courbure entré par l'utilisater
+	 * @return le rayon de courbure
+	 * @throws TexteVideRayonCourbureException si le champ est vide
+	 */
 	public String obtenirRayonCourbure() throws TexteVideRayonCourbureException
 	{
 		if ((this.ray.getText().equalsIgnoreCase("")))
@@ -128,11 +157,19 @@ public class PanelDeControleDeLaCourbe extends JPanel
 		else return this.ray.getText();
 	}
 	
+	/**
+	 * Permet de récuperer le Panel contenant le boutonGoTo, afin de pouvoir capturer la source de l'evenement
+	 * @return le Panel contenant le boutonGoTo
+	 */
 	public JPanel obtenirPaneBoutonGoTo()
 	{
 		return this.b4;
 	}
 	
+	/**
+	 * Permet de récuperer le Panel contenant le BoutonCourbe, afin de pouvoir capturer la source de l'evenement
+	 * @return le Panel contenant le BoutonCourbe
+	 */
 	public JPanel obtenirPaneBoutonCourbe()
 	{
 		return this.b5;

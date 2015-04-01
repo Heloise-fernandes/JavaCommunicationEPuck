@@ -23,10 +23,13 @@ import Exception.TexteVideRayonCourbureException;
 import Exception.TexteVideVitesseException;
 import Exception.TexteVideXException;
 import Exception.TexteVideYException;
-import InterfaceControleurIHM.Vue;
 
-
-public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyListener
+/**
+ * Fenetre principale de l'application
+ * @author Maxime
+ *
+ */
+public class InterfacePrincipale implements Runnable, ActionListener, KeyListener
 {
 	private static final int VITESSE_PAR_DEFAUT = 500;
 
@@ -37,7 +40,7 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	
 	private PanelDeConnexionAuPort panelConnexion;
 	private PanelDeDeplacement panelDeplacement;
-	private PanelDeControleDeLaCourbe panelCourbe;
+	private PanelCourbeEtGoTo panelCourbe;
 
 	private EPuck controler;
 
@@ -56,13 +59,14 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	@Override
 	public void run()
 	{	
-		
+		//Creer un gestionnaire de fenetre afin de capturer la fermeture
 		GestionnaireFenetre gf = new GestionnaireFenetre();
 		
 		//Configuration de la fenêtre JFrame
 		this.fenetre = new JFrame();
 		this.fenetre.setSize(800,450);
 		this.fenetre.getContentPane().setLayout(new BorderLayout());
+		//On ne fait rien à la fermeture, c'est le gestionnaire qui se charge de fermer l'application
 		this.fenetre.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		
 		//Configuration du panel de gauche
@@ -71,10 +75,8 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		
 		//Ajout des éléments du panel de gauche
 		this.panelConnexion = new PanelDeConnexionAuPort(this);
-		
 		this.panelDeplacement = new PanelDeDeplacement(this);
-		
-		this.panelCourbe = new PanelDeControleDeLaCourbe(this);
+		this.panelCourbe = new PanelCourbeEtGoTo(this);
 		
 		this.paneGauche.add(panelConnexion,BorderLayout.NORTH);
 		this.paneGauche.add(panelDeplacement,BorderLayout.CENTER);
@@ -86,20 +88,11 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		
 		//fenetre graphique
 		this.graphique = new Graphique();
-        
-        //graphique.ajoutPoint(10.0, 10.0);
-        
+		//On met le graphique dans un JPanel afin de pouvoir l'afficher
         JPanel panelGraphique = new JPanel();
         panelGraphique.setLayout(new java.awt.BorderLayout());        
         panelGraphique.add(graphique.obtenirChartPanel(),BorderLayout.CENTER);
         panelGraphique.validate();
-		
-		//Ajout des éléments du panel de droite
-		//this.pane4 = new PanelDeTracage();
-		//this.paneDroit.add(panelGraphique);
-		//this.paneDroit.add(pane5);
-		/*this.paneDroit.add(pane6);
-		this.paneDroit.add(pane7);*/
 		
 		//Formation de la fenêtre finale
         this.fenetre.addWindowListener(gf);
@@ -107,16 +100,12 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		this.fenetre.getContentPane().add(panelGraphique);
 		this.fenetre.setVisible(true);
 		
-		
-        
-        //test observeur
-        /*this.controler.ajouterObserver(graphique);
-        this.controler.notifierObserver(10.0, 3.0);
-        this.controler.notifierObserver(5.0, -4.0);*/
-		
 	}
 
-	
+	/**
+	 * Permet de se connecter via un port COM, et ajoute le graphique à la liste de observer du robot
+	 * @param portCOM port de communication avec le robot sous la forme "COMX" avec X le numero du port COM
+	 */
 	public void traiterConnexion(String portCOM)
 	{
 		port = new SerialPortConnexion(portCOM);
@@ -124,11 +113,17 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		{
 			this.controler = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());
 			JOptionPane.showMessageDialog(this.fenetre, "Connexion Réussie", "Information", JOptionPane.INFORMATION_MESSAGE);
+			//On ajoute le graphique en observeur afin de pouvoir, si besoin ajouter la position du robot sur le graphique
 			this.controler.ajouterObserver(this.graphique);
 		}
 		else JOptionPane.showMessageDialog(this.fenetre, "Echec de Connexion", "Information", JOptionPane.ERROR_MESSAGE);
 	}
 	
+	/**
+	 * Permet de capturer les ordres du panel de déplacement.
+	 * Si aucune vitesse n'est entrée par l'utilisateur, on prend une vitesse par défaut de 5OO pas/s
+	 * @param ordre caractère représentant l'ordre du robot
+	 */
 	public void traiterDeplacement(char ordre)
 	{
 		if (this.controler != null)
@@ -157,7 +152,7 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 				this.controler.toupieDroite(vitesse);
 				break;
 			case 'G':
-				this.controler.toupieGauche(-vitesse);
+				this.controler.toupieGauche(vitesse);
 				break;
 			default:
 				this.controler.stop();
@@ -189,6 +184,9 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	}
 
 
+	/**
+	 * Permet de localiser la source de l'evenement et de le traiter
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		// TODO Auto-generated method stub
@@ -223,6 +221,9 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 	}
 
 
+	/**
+	 * Permet au robot de faire un cercle. Pour faire un cercle dans l'autre sens il suffit de rentrer une vitesse négative
+	 */
 	private void traiterCourbe() 
 	{
 		int vitesse;
@@ -245,9 +246,9 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 			Courbe courbe = new Courbe(rayonCourbure,vitesse);
 			System.out.println("courbe créé");
 			
-			double vitRoueGauche = courbe.obtenirVitesseRoueGauche();
+			int vitRoueGauche = courbe.obtenirVitesseRoueGauche();
 			System.out.println("vit roue G faite");
-			double vitRoueDroite = courbe.obtenirVitesseRoueDroite();
+			int vitRoueDroite = courbe.obtenirVitesseRoueDroite();
 			System.out.println("vit rooue D faite");
 			
 			System.out.println("vitRoueG : "+vitRoueGauche);
@@ -267,6 +268,9 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		
 	}
 
+	/**
+	 * Permet de traiter le goto. Il manque l'appel de la méthode goto du robot, non traité
+	 */
 	private void traiterGoTo() {
 		
 		try {
@@ -279,13 +283,11 @@ public class InterfacePrincipale implements Runnable, Vue, ActionListener, KeyLi
 		//TODO ajouter appel methode goto
 		
 	}
-
-	@Override
-	public void notifierActionMouvement(Direction direction) {
-		// TODO Auto-generated method stub
-		
-	}
 	
+	/**
+	 * Permet d'obtenir le port de connexion, afin de pouvoir le fermer avant de quitter l'application
+	 * @return le port de connexion
+	 */
 	public static SerialPortConnexion getport()
 	{
 		return port;

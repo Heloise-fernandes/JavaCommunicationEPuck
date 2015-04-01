@@ -1,5 +1,9 @@
 package Lunch;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 
 import javax.swing.SwingUtilities;
@@ -39,49 +43,57 @@ public class ProgrammePrincipale
 	
 	public static void main (String[] args)
 	{
-		SwingUtilities.invokeLater(new InterfacePrincipale());
+		//SwingUtilities.invokeLater(new InterfacePrincipale());
 
-				//EpuckAvecThread epuck = new EpuckAvecThread(4, "COM5","COM10" );
-				//epuck.start();
+		EpuckAvecThread epuck = new EpuckAvecThread(8, "COM10","COM5" );
+		epuck.start();
 				
 				
-				/*SerialPortConnexion port = new SerialPortConnexion("COM5");
-				port.ouvrirPort();
-				
+		/*SerialPortConnexion port = new SerialPortConnexion("COM10");
+		port.ouvrirPort();
+		
+		try 
+		{
+			BufferedReader br = new BufferedReader(new InputStreamReader(port.obtenirConnexionEntree(), "US-ASCII"));
+			try 
+			{
+				port.obtenirConnexionSortie().write(("coeur sur toi <3\r\n").getBytes("US-ASCII"));
+			} catch (IOException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			while(true)
+			{
 				try 
 				{
-					BufferedReader br = new BufferedReader(new InputStreamReader(port.obtenirConnexionEntree(), "US-ASCII"));
-					port.obtenirConnexionSortie().write(("blopblop\n\r").getBytes("US-ASCII"));
-					while(true)
+					if(br.ready())
 					{
-						try {
-							if(br.ready())
-							{
-								String line = "";
-								
-								line = br.readLine();
-								if(line == null)
-								{
-									System.out.println("probleme");
-									break;
-								}
-								 
-								if(line.equals("\n"))
-									break;
-								System.out.println(line);
-								
-							}
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						String line = "";
+						
+						line = br.readLine();
+						if(line == null)
+						{
+							System.out.println("probleme");
+							break;
 						}
+						 
+						if(line.equals("\n"))
+							break;
+						System.out.println(line);
+						
 					}
-				}
-				catch (UnsupportedEncodingException e) {
+				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				*/
+			}
+		}
+		catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			*/
 			
 			/*transforme un entier en binaire*/
 	}

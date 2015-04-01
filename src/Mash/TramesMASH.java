@@ -42,9 +42,9 @@ public class TramesMASH
 				
 		}
 		
-		public InformationsTramesMASH getDonne()
+		public String getDonne()
 		{
-			return this.donnees;
+			return this.donnees.getData();
 		}
 
 }

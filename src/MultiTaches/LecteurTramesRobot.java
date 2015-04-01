@@ -51,6 +51,7 @@ public class LecteurTramesRobot extends Thread
 			 {
 				if(br.ready())
 				{
+					System.out.println("je suis pret, robot");
 					String line = "";
 					
 					line = br.readLine();

@@ -37,7 +37,7 @@ public class InformationDonneeDefault implements InformationsTramesMASH
 		super();
 		this.fonction= info.substring(OCTETS_POSITION_FONCTION, OCTETS_POSITION_FONCTION+OCTETS_TAILLE_FONCTION);
 		this.sousfonction= info.substring(OCTETS_POSITION_SS_FONCTION, OCTETS_POSITION_SS_FONCTION+OCTETS_TAILLE_SS_FONCTION);
-		this.data= info.substring(OCTETS_POSITION_DEBUT_DONNEES, info.length()+OCTETS_POSITION_DEBUT_DONNEES);
+		this.data= info.substring(OCTETS_POSITION_DEBUT_DONNEES, info.length()+OCTETS_POSITION_FIN_DONNEES);
 	}
 	
 	public String getData()

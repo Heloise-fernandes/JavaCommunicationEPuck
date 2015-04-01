@@ -57,9 +57,8 @@ public class EpuckAvecThread implements ObservableEpuck
 		public void start()
 		{
 			this.lecteurTramesRobot.start();
-			System.out.println("blop");
 			this.lecteurTramesMASH.start();
-			System.out.println("thread en fonctionnement\n");
+
 		}
 		
 		
@@ -74,9 +73,11 @@ public class EpuckAvecThread implements ObservableEpuck
 		{
 			TramesMASH trame = new TramesMASH(chaineretour);
 			
-			if(trame.getDonne().getData().substring(0,2).equals("?"))
+			if(trame.getDonne().substring(0).equals("?"))
+			{
 				this.notifierObserver(trame);
 				System.out.println("A notifier");
+			}
 			this.envoieTramesMASH.redirectionTrames(chaineretour);
 		}
 		
@@ -90,7 +91,7 @@ public class EpuckAvecThread implements ObservableEpuck
 		{
 			TramesMASH trame = new TramesMASH(commande);
 			
-			this.envoieTramesRobot.envoieOrdre(trame.getDonne().getData());
+			this.envoieTramesRobot.envoieOrdre(trame.getDonne());
 		}
 
 
@@ -111,7 +112,7 @@ public class EpuckAvecThread implements ObservableEpuck
 			{
 				System.out.println("Je lance actualiser");
 				String[] coordonnées = new String[3];
-				coordonnées = trame.getDonne().getData().split(",");
+				coordonnées = trame.getDonne().split(",");
 				obs.actualiser(Float.parseFloat(coordonnées[1]),Float.parseFloat(coordonnées[2]));
 			}
 			

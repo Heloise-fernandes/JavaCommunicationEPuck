@@ -53,6 +53,7 @@ public class LecteurTramesMASH extends Thread
 			 {
 				if(br.ready())
 				{
+					System.out.println("je suis pret,mash");
 					String line = "";
 					
 					line = br.readLine();
@@ -65,7 +66,7 @@ public class LecteurTramesMASH extends Thread
 					if(line.equals("\n"))
 						break;
 					System.out.println(line);
-					this.robot.trasfereDesDonneesRecusVersMash(line);
+					this.robot.envoieCommande(line);
 					  
 				}
 				

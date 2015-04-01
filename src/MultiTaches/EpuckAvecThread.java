@@ -97,6 +97,11 @@ public class EpuckAvecThread implements ObservableEpuck
 			this.envoieTramesRobot.envoieOrdre(o, i,x ,y);
 		}
 		
+		public void envoieDOrdreAuRobot(EpuckOrder ordre, int x,int y) 
+		{
+			this.envoieTramesRobot.envoieOrdre(ordre,x ,y);
+		}
+		
 		public void envoieCommande(String commande)
 		{
 			TramesMASH trame = new TramesMASH(commande);
@@ -144,12 +149,7 @@ public class EpuckAvecThread implements ObservableEpuck
 		}
 
 
-		public void envoieDOrdreAuRobot(EpuckOrder ordre, int x,
-				int y) {
-			
-			this.envoieTramesRobot.envoieOrdre(ordre,x ,y);
-			
-		}
+		
 
 
 }

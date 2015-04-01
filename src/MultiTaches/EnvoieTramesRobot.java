@@ -112,31 +112,19 @@ public class EnvoieTramesRobot extends Thread
 		}
 	}
 	
-	public void envoieOrdre(String data) 
+
+	public void envoieOrdre(EpuckOrder ordre, int x, int y) 
 	{
-		try
-		{
-			out.write((data).getBytes("US-ASCII"));
-		}
-		catch (IOException e) 
-		{
-			System.out.println("Problème sortie (aide)"); 
-			e.printStackTrace();
-		}
-		
-	}
 
-
-	public void envoieOrdre(EpuckOrder ordre, int x, int y) {
-		
-		
-			try {
+			try 
+			{
 				if(ordre.equals(EpuckOrder.COURBE))
 					out.write((EpuckOrder.COURBE+","+x+","+y+"\n\r").getBytes("US-ASCII"));
 				else if(ordre.equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
 					out.write((EpuckOrder.DEPLACEMENTPARCOORDONNEE+"\n\r").getBytes("US-ASCII"));
 				else
 					System.out.println("Pas trouvé");
+				
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

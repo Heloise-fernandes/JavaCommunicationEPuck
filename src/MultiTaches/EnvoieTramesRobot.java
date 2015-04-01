@@ -35,31 +35,31 @@ public class EnvoieTramesRobot extends Thread
 			if(l[0].equals(EpuckOrder.ACCELEROMETRE.toString()))
 				out.write((EpuckOrder.ACCELEROMETRE+"\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.PROXIMITE))
+			else if(l[0].equals(EpuckOrder.PROXIMITE.toString()))
 				out.write((EpuckOrder.PROXIMITE+"\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.ARRETER))
+			else if(l[0].equals(EpuckOrder.ARRETER.toString()))
 				out.write((EpuckOrder.ARRETER+"\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.AVANCERTOUTDROIT))
+			else if(l[0].equals(EpuckOrder.AVANCERTOUTDROIT.toString()))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+","+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.TOUPIE.toString()))
+			else if(l[0].equals(EpuckOrder.TOUPIE.toString()))
 				out.write((EpuckOrder.TOUPIE+","+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.TOURNERGACHE))
+			else if(l[0].equals(EpuckOrder.TOURNERGACHE.toString()))
 				out.write((EpuckOrder.TOUPIE+",-100,100\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.TOURNERDROITE))
+			else if(l[0].equals(EpuckOrder.TOURNERDROITE.toString()))
 				out.write((EpuckOrder.TOUPIE+",100,-100\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.AVANCERVALEURDEFAUT))
+			else if(l[0].equals(EpuckOrder.AVANCERVALEURDEFAUT.toString()))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+",500,500\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.RECULER))
+			else if(l[0].equals(EpuckOrder.RECULER.toString()))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+",-500,-500\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
+			else if(l[0].equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE.toString()))
 				out.write(("?,"+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));	
 			else 
 				System.out.println("tab pas trouvé ordre");
@@ -76,34 +76,34 @@ public class EnvoieTramesRobot extends Thread
 	{
 		try
 		{
-			if(ordre.equals(EpuckOrder.ACCELEROMETRE))
+			if(ordre.equals(EpuckOrder.ACCELEROMETRE.toString()))
 				out.write((EpuckOrder.ACCELEROMETRE+"\n\r").getBytes("US-ASCII"));
 			
-			if(ordre.equals(EpuckOrder.PROXIMITE))
+			else if(ordre.equals(EpuckOrder.PROXIMITE.toString()))
 				out.write((EpuckOrder.PROXIMITE+"\n\r").getBytes("US-ASCII"));
 			
-			if(ordre.equals(EpuckOrder.ARRETER))
+			else if(ordre.equals(EpuckOrder.ARRETER.toString()))
 				out.write((EpuckOrder.ARRETER+"\n\r").getBytes("US-ASCII"));
 			
-			if(ordre.equals(EpuckOrder.AVANCERTOUTDROIT))
+			else if(ordre.equals(EpuckOrder.AVANCERTOUTDROIT.toString()))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+","+v+","+v+"\n\r").getBytes("US-ASCII"));
 			
-			if(ordre.equals(EpuckOrder.TOUPIE))
+			else if(ordre.equals(EpuckOrder.TOUPIE.toString()))
 				out.write((EpuckOrder.TOUPIE+","+(-v)+","+v+"\n\r").getBytes("US-ASCII"));
 			
-			if(ordre.equals(EpuckOrder.TOURNERGACHE))
+			else if(ordre.equals(EpuckOrder.TOURNERGACHE.toString()))
 				out.write((EpuckOrder.TOUPIE+",-100,100\n\r").getBytes("US-ASCII"));
 			
-			if(ordre.equals(EpuckOrder.TOURNERDROITE))
+			else if(ordre.equals(EpuckOrder.TOURNERDROITE.toString()))
 				out.write((EpuckOrder.TOUPIE+",100,-100\n\r").getBytes("US-ASCII"));
 			
-			if(ordre.equals(EpuckOrder.AVANCERVALEURDEFAUT))
+			else if(ordre.equals(EpuckOrder.AVANCERVALEURDEFAUT.toString()))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+",500,500\n\r").getBytes("US-ASCII"));
 			
-			if(ordre.equals(EpuckOrder.RECULER))
+			else if(ordre.equals(EpuckOrder.RECULER.toString()))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+",-500,-500\n\r").getBytes("US-ASCII"));
 			
-			if(ordre.equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
+			else if(ordre.equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE.toString()))
 				out.write(("?,"+x+","+y+"\n\r").getBytes("US-ASCII"));	
 			else 
 				System.out.println("param pas trouvé ordre");

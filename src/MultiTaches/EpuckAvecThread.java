@@ -71,14 +71,18 @@ public class EpuckAvecThread implements ObservableEpuck
 		
 		public void trasfereDesDonneesRecusVersMash(String chaineretour)
 		{
-			TramesMASH trame = new TramesMASH(chaineretour);
-			
-			if(trame.getDonne().substring(0).equals("?"))
+			if(chaineretour.substring(0,3).equals("01FE"))
 			{
-				this.notifierObserver(trame);
-				System.out.println("A notifier");
+				TramesMASH trame = new TramesMASH(chaineretour);
+				
+				if(trame.getDonne().substring(0).equals("?"))
+				{
+					this.notifierObserver(trame);
+					System.out.println("A notifier");
+				}
+				this.envoieTramesMASH.redirectionTrames(chaineretour);
 			}
-			this.envoieTramesMASH.redirectionTrames(chaineretour);
+			System.out.println(chaineretour);
 		}
 		
 		

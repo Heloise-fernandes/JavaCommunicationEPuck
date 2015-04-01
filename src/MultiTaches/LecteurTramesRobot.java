@@ -64,7 +64,7 @@ public class LecteurTramesRobot extends Thread
 					if(line.equals("\n"))
 						break;
 					System.out.println(line);
-					this.epuck.trasfereDesDonneesRecusVersMash("robot : "+line);
+					this.epuck.trasfereDesDonneesRecusVersMash(line);
 					  
 				}
 				

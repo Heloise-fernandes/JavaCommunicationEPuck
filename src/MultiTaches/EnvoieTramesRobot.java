@@ -32,7 +32,7 @@ public class EnvoieTramesRobot extends Thread
 		try
 		{
 			System.out.println(l[0]+","+l[1]+","+l[2]);
-			if(l[0].equals(EpuckOrder.ACCELEROMETRE))
+			if(l[0].equals(EpuckOrder.ACCELEROMETRE.toString()))
 				out.write((EpuckOrder.ACCELEROMETRE+"\n\r").getBytes("US-ASCII"));
 			
 			if(l[0].equals(EpuckOrder.PROXIMITE))
@@ -44,7 +44,7 @@ public class EnvoieTramesRobot extends Thread
 			if(l[0].equals(EpuckOrder.AVANCERTOUTDROIT))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+","+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));
 			
-			if(l[0].equals(EpuckOrder.TOUPIE))
+			if(l[0].equals(EpuckOrder.TOUPIE.toString()))
 				out.write((EpuckOrder.TOUPIE+","+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));
 			
 			if(l[0].equals(EpuckOrder.TOURNERGACHE))

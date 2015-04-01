@@ -61,7 +61,7 @@ public class EnvoieTramesRobot extends Thread
 			if(l[0].equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
 				out.write(("?,"+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));	
 			else 
-				System.out.println("pas trouvé ordre");
+				System.out.println("tab pas trouvé ordre");
 		}
 		catch (IOException e) 
 		{
@@ -105,7 +105,7 @@ public class EnvoieTramesRobot extends Thread
 			if(ordre.equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
 				out.write(("?,"+x+","+y+"\n\r").getBytes("US-ASCII"));	
 			else 
-				System.out.println("pas trouvé ordre");
+				System.out.println("param pas trouvé ordre");
 		}
 		catch (IOException e) 
 		{

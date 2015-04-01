@@ -74,7 +74,7 @@ public class LecteurTramesMASH extends Thread
 			 catch (IOException e) 
 			 {
 				 System.out.println("Problème entrée");
-				 e.printStackTrace();
+
 		     }
 	    }
 		System.out.println("fin");

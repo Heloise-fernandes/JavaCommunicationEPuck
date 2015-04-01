@@ -72,7 +72,6 @@ public class LecteurTramesRobot extends Thread
 			 catch (IOException e) 
 			 {
 				 System.out.println("Problème entrée");
-				 e.printStackTrace();
 		     }
 	    }
 		System.out.println("fin");

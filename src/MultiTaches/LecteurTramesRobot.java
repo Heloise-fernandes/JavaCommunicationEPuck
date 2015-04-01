@@ -78,20 +78,4 @@ public class LecteurTramesRobot extends Thread
 	}
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -74,8 +74,8 @@ public class EpuckAvecThread implements ObservableEpuck
 		{
 			TramesMASH trame = new TramesMASH(chaineretour);
 			
-			if(trame.getDonne().getData().substring(0,2).equals("co"))
-				//notify
+			if(trame.getDonne().getData().substring(0,2).equals("?"))
+				this.notifierObserver(trame);
 				System.out.println("A notifier");
 			this.envoieTramesMASH.redirectionTrames(chaineretour);
 		}

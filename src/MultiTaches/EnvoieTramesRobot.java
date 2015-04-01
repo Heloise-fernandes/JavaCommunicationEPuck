@@ -59,7 +59,7 @@ public class EnvoieTramesRobot extends Thread
 				out.write((EpuckOrder.AVANCERTOUTDROIT+",-500,-500\n\r").getBytes("US-ASCII"));
 			
 			if(ordre.equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
-				out.write(("BLOP BLOP BLOP").getBytes("US-ASCII"));	
+				out.write(("?,"+x+","+y).getBytes("US-ASCII"));	
 		}
 		catch (IOException e) 
 		{

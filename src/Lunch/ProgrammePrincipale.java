@@ -39,7 +39,7 @@ public class ProgrammePrincipale
 	
 	public static void main (String[] args)
 	{
-		//SwingUtilities.invokeLater(new InterfacePrincipale());
+		SwingUtilities.invokeLater(new InterfacePrincipale());
 
 				//EpuckAvecThread epuck = new EpuckAvecThread(4, "COM5","COM10" );
 				//epuck.start();

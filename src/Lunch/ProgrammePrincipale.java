@@ -45,7 +45,7 @@ public class ProgrammePrincipale
 	{
 		//SwingUtilities.invokeLater(new InterfacePrincipale());
 
-		EpuckAvecThread epuck = new EpuckAvecThread(8, "COM10","COM5" );
+		EpuckAvecThread epuck = new EpuckAvecThread(8, "COM4","COM3" );
 		epuck.start();
 				
 				

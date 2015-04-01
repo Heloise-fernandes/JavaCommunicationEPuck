@@ -144,4 +144,12 @@ public class EpuckAvecThread implements ObservableEpuck
 		}
 
 
+		public void envoieDOrdreAuRobot(EpuckOrder ordre, int x,
+				int y) {
+			
+			this.envoieTramesRobot.envoieOrdre(ordre,x ,y);
+			
+		}
+
+
 }

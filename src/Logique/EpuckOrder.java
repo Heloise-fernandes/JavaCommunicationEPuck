@@ -16,7 +16,8 @@ public enum EpuckOrder {
 	RECULER("RD"),
 	TOURNERDROITE("DD"),
 	TOURNERGACHE("DG"),
-	DEPLACEMENTPARCOORDONNEE("?");
+	DEPLACEMENTPARCOORDONNEE("?"), 
+	COURBE("D");
 	
 	private final String ordre;
 	

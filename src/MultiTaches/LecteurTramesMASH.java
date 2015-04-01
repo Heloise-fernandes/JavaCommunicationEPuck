@@ -65,7 +65,7 @@ public class LecteurTramesMASH extends Thread
 					 
 					if(line.equals("\n"))
 						break;
-					System.out.println(line);
+					System.out.println("mash : "+line);
 					this.robot.envoieCommande(line);
 					  
 				}

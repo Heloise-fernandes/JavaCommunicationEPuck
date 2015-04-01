@@ -27,6 +27,50 @@ public class EnvoieTramesRobot extends Thread
 		
 	}
 	
+	public void envoieOrdre(String[] l)
+	{
+		try
+		{
+			if(l[0].equals(EpuckOrder.ACCELEROMETRE))
+				out.write((EpuckOrder.ACCELEROMETRE+"\n\r").getBytes("US-ASCII"));
+			
+			if(l[0].equals(EpuckOrder.PROXIMITE))
+				out.write((EpuckOrder.PROXIMITE+"\n\r").getBytes("US-ASCII"));
+			
+			if(l[0].equals(EpuckOrder.ARRETER))
+				out.write((EpuckOrder.ARRETER+"\n\r").getBytes("US-ASCII"));
+			
+			if(l[0].equals(EpuckOrder.AVANCERTOUTDROIT))
+				out.write((EpuckOrder.AVANCERTOUTDROIT+","+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));
+			
+			if(l[0].equals(EpuckOrder.TOUPIE))
+				out.write((EpuckOrder.TOUPIE+","+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));
+			
+			if(l[0].equals(EpuckOrder.TOURNERGACHE))
+				out.write((EpuckOrder.TOUPIE+",-100,100\n\r").getBytes("US-ASCII"));
+			
+			if(l[0].equals(EpuckOrder.TOURNERDROITE))
+				out.write((EpuckOrder.TOUPIE+",100,-100\n\r").getBytes("US-ASCII"));
+			
+			if(l[0].equals(EpuckOrder.AVANCERVALEURDEFAUT))
+				out.write((EpuckOrder.AVANCERTOUTDROIT+",500,500\n\r").getBytes("US-ASCII"));
+			
+			if(l[0].equals(EpuckOrder.RECULER))
+				out.write((EpuckOrder.AVANCERTOUTDROIT+",-500,-500\n\r").getBytes("US-ASCII"));
+			
+			if(l[0].equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
+				out.write(("?,"+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));	
+			else 
+				System.out.println("pas trouvé ordre");
+		}
+		catch (IOException e) 
+		{
+			System.out.println("Problème sortie (aide)"); 
+			e.printStackTrace();
+		}
+	}
+
+
 	public void envoieOrdre(EpuckOrder ordre, int v, int x,int y)
 	{
 		try
@@ -59,7 +103,9 @@ public class EnvoieTramesRobot extends Thread
 				out.write((EpuckOrder.AVANCERTOUTDROIT+",-500,-500\n\r").getBytes("US-ASCII"));
 			
 			if(ordre.equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
-				out.write(("?,"+x+","+y).getBytes("US-ASCII"));	
+				out.write(("?,"+x+","+y+"\n\r").getBytes("US-ASCII"));	
+			else 
+				System.out.println("pas trouvé ordre");
 		}
 		catch (IOException e) 
 		{
@@ -67,8 +113,7 @@ public class EnvoieTramesRobot extends Thread
 			e.printStackTrace();
 		}
 	}
-
-
+	
 	public void envoieOrdre(String data) 
 	{
 		try

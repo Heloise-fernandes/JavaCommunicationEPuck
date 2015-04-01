@@ -90,8 +90,9 @@ public class EpuckAvecThread implements ObservableEpuck
 		public void envoieCommande(String commande)
 		{
 			TramesMASH trame = new TramesMASH(commande);
+			String[] liste = trame.getDonne().split(",");
 			
-			this.envoieTramesRobot.envoieOrdre(trame.getDonne());
+			this.envoieTramesRobot.envoieOrdre(liste);
 		}
 
 

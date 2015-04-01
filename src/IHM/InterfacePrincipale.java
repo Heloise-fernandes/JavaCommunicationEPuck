@@ -5,6 +5,7 @@ import Logique.Courbe;
 import Logique.Direction;
 import Logique.EPuck;
 import Logique.SerialPortConnexion;
+import gnu.io.NoSuchPortException;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -108,15 +109,19 @@ public class InterfacePrincipale implements Runnable, ActionListener, KeyListene
 	 */
 	public void traiterConnexion(String portCOM)
 	{
-		port = new SerialPortConnexion(portCOM);
-		if (port.ouvrirPort())
-		{
+		try {
+			port = new SerialPortConnexion(portCOM);
+			port.ouvrirPort();
+			
 			this.controler = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());
 			JOptionPane.showMessageDialog(this.fenetre, "Connexion Réussie", "Information", JOptionPane.INFORMATION_MESSAGE);
 			//On ajoute le graphique en observeur afin de pouvoir, si besoin ajouter la position du robot sur le graphique
 			this.controler.ajouterObserver(this.graphique);
-		}
-		else JOptionPane.showMessageDialog(this.fenetre, "Echec de Connexion", "Information", JOptionPane.ERROR_MESSAGE);
+			
+		} catch (NoSuchPortException e) {
+			JOptionPane.showMessageDialog(this.fenetre, "Echec de Connexion", "Information", JOptionPane.ERROR_MESSAGE);
+			
+		}		
 	}
 	
 	/**

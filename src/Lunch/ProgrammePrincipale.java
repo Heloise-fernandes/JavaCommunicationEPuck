@@ -1,5 +1,7 @@
 package Lunch;
 
+import gnu.io.NoSuchPortException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,9 +46,17 @@ public class ProgrammePrincipale
 	public static void main (String[] args)
 	{
 		//SwingUtilities.invokeLater(new InterfacePrincipale());
+		
 
-		EpuckAvecThread epuck = new EpuckAvecThread(8, "COM4","COM3" );
-		epuck.start();
+		/*EpuckAvecThread epuck;
+		try {
+			epuck = new EpuckAvecThread(8, "COM4","COM3" );
+			epuck.start();
+		} catch (NoSuchPortException e) {
+			System.out.println("Pas de port");
+			e.printStackTrace();
+		}*/
+		SwingUtilities.invokeLater(new InterfaaceEPuckThread("COM3"));
 				
 				
 		/*SerialPortConnexion port = new SerialPortConnexion("COM10");
@@ -218,28 +228,27 @@ public class ProgrammePrincipale
 	{
 		//SwingUtilities.invokeLater(new InterfacePrincipale());
 				
-		SerialPortConnexion port = new SerialPortConnexion("COM4");
-		port.ouvrirPort();
-		EPuck robot = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());	
-		
-		robot.aide();
-		robot.afficherValeurCapteur();
-		
-		port.fermerPort();
-		try 
-		{
+		SerialPortConnexion port;
+		try {
+			port = new SerialPortConnexion("COM4");
+			port.ouvrirPort();
+			EPuck robot = new EPuck(port.obtenirConnexionEntree(), port.obtenirConnexionSortie());	
+			
+			robot.aide();
+			robot.afficherValeurCapteur();
+			
+			port.fermerPort();
 			robot.aide();
 			Thread.sleep(2000);
 			robot.aide();
 			Thread.sleep(2000);
 			port.fermerPort();
 			System.out.println("Fin Programme");
-		} 
-		catch (InterruptedException e) 
-		{
-			System.out.println("Probleme");
-			e.printStackTrace();
+		} catch (NoSuchPortException | InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
 	}
 	
 	

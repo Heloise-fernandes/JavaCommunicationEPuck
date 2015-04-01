@@ -1,5 +1,10 @@
 package InterfaceControleurIHM;
 
+/**
+ * Interface permettant au oservateur d'actualiser la position du robot
+ * @author Maxime
+ *
+ */
 public interface ObservateurEPuck {
 	
 	

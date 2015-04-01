@@ -12,7 +12,11 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import InterfaceControleurIHM.ObservateurEPuck;
-
+/**
+ * Cette classe permet de créer un graphique (nuage de points).
+ * Elle est destiné à afficher la position du robot sur l'interface.
+ * @author Maxime
+ */
 public class Graphique  implements ObservateurEPuck{
 	
 	private static final int HAUTEUR_GRAPHIQUE = 300;
@@ -23,12 +27,17 @@ public class Graphique  implements ObservateurEPuck{
 	private static final double MIN_Y = -50.0;
 	private static final double MAX_Y = 50.0;
 	private static final double ECHELLE_Y = 5;
-	XYDataset donnee;
-	XYSeriesCollection result;
-	XYSeries series;
+	
+	
+	private XYDataset donnee;
+	private XYSeriesCollection result;
+	private XYSeries series;
 	private ChartPanel chartPanel;
 	
-	
+	/**
+	 * Constructeur de la classe
+	 * creer un graphique qui contient des points
+	 */
 	public Graphique()
 	{
 		
@@ -48,6 +57,7 @@ public class Graphique  implements ObservateurEPuck{
                 false // urls
                 );
     	
+    	//On défini l'echelle du graphique
     	XYPlot xyPlot = chart.getXYPlot();
         NumberAxis domain = (NumberAxis) xyPlot.getDomainAxis();
         domain.setRange(MIN_X, MAX_X);
@@ -56,14 +66,20 @@ public class Graphique  implements ObservateurEPuck{
         NumberAxis range = (NumberAxis) xyPlot.getRangeAxis();
         range.setRange(MIN_Y, MAX_Y);
         range.setTickUnit(new NumberTickUnit(ECHELLE_Y));
+        
+        //on ajoute le point d'origine
         ajoutPoint(0.0,0.0);
         
         chartPanel = new ChartPanel(chart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(LARGEUR_GRAPHIQUE, HAUTEUR_GRAPHIQUE));
-        //setContentPane(chartPanel);
+		chartPanel.setPreferredSize(new java.awt.Dimension(LARGEUR_GRAPHIQUE, HAUTEUR_GRAPHIQUE));       
 	}
 	
-	
+	/**
+	 * Permet d'ajouter un point au graphique. L'ajout d'un point dans series met
+	 * automatiquement le graphique à jour.
+	 * @param x coordonnée x
+	 * @param y coordonnée y
+	 */
 	public void ajoutPoint (double x, double y)
    	{
 		System.out.println("J'ajoute le point");
@@ -71,6 +87,9 @@ public class Graphique  implements ObservateurEPuck{
    	}
 
 
+	/**
+	 * Methode de l'interface ObservateurEPuck, fait la même chose qu'ajoutPoint
+	 */
 	@Override
 	public void actualiser(double x, double y) {
 		System.out.println("Je recoit actualiser");
@@ -78,6 +97,10 @@ public class Graphique  implements ObservateurEPuck{
 		
 	}
 	
+	/**
+	 * Permet d'obtenir le graphique afin de l'afficher dans une fenêtre
+	 * @return le graphique 
+	 */
 	public ChartPanel obtenirChartPanel()
 	{
 		return this.chartPanel;

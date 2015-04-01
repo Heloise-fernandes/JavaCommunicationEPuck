@@ -43,6 +43,8 @@ public class EPuck implements ObservableEpuck
 			System.out.println("Problème création robot");
 			e.printStackTrace();
 		}
+		//Le robot ne comprend jamais la première commande, on lui en envoie une directement afin d'avoir une interface fonctionnelle dès la première commande
+		this.stop();
 	}
 	
 	
@@ -365,10 +367,11 @@ public class EPuck implements ObservableEpuck
 		
 	}
 	
-	public void courbe(double vitesseRg, double vitesseRd)
+	public void courbe(int vitesseRg, int vitesseRd)
 	{
 		try
 		{
+			System.out.println(EpuckOrder.AVANCERTOUTDROIT+","+vitesseRg+","+vitesseRd+"\n\r");
 			out.write((EpuckOrder.AVANCERTOUTDROIT+","+vitesseRg+","+vitesseRd+"\n\r").getBytes("US-ASCII"));
 		}
 		catch (IOException e) {System.out.println("Problème sortie (courbe)"); e.printStackTrace();}

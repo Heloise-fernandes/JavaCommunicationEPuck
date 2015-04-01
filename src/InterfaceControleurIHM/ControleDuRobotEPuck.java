@@ -26,7 +26,6 @@ public interface ControleDuRobotEPuck {
 	public abstract void toupie(int vitesse);
 
 	/**
-	 * TODO
 	 * Permet d'afficher l'aide fournie par le robot
 	 */
 	public abstract void aide();
@@ -39,6 +38,13 @@ public interface ControleDuRobotEPuck {
 	 * Affiche la valeur des capteur infrarouge
 	 * */
 	public abstract void AfficherValeurCapteur();
+	
+	/**
+	 * Permet au robot d'effectuer un cercle
+	 * @param vitesseRg vitesse roue gauche
+	 * @param vitesseRd vitesse roue droite
+	 */
+	public abstract void courbe(int vitesseRg, int vitesseRd);
 	
 	
 

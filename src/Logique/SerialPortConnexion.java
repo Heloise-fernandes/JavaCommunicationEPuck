@@ -20,8 +20,9 @@ public class SerialPortConnexion
 	private SerialPort port;
 	private CommPortIdentifier portID;
 	
-	/**Constructeur*/
-	public SerialPortConnexion(String nom)
+	/**Constructeur
+	 * @throws NoSuchPortException */
+	public SerialPortConnexion(String nom) throws NoSuchPortException
 	{
 		if (verificationExistancePort(nom)!=null)
 		{
@@ -94,20 +95,15 @@ public class SerialPortConnexion
 	 * Entrees:String, le nom du port série
 	 * Sorties:CommPortIdentifier, identifiant du port
 	 * Verifie si la connexion sur le port est possible et si oui, la methode renvoie identifiant du port
+	 * @throws NoSuchPortException 
 	 * */
-	private CommPortIdentifier verificationExistancePort(String nomPort)
+	private CommPortIdentifier verificationExistancePort(String nomPort) throws NoSuchPortException
 	{
 		 CommPortIdentifier p = null;
-		 try 
-		 {
-			 p = CommPortIdentifier.getPortIdentifier(nomPort);
-			 return p;
-		 }
-		 catch (NoSuchPortException e1) 
-		 {
-			 System.out.println("Pas de port");
-			 return p;
-		 }
+		 
+		 p = CommPortIdentifier.getPortIdentifier(nomPort);
+		 return p;
+		 
 	}
 	
 	/**

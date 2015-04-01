@@ -1,5 +1,7 @@
 package MultiTaches;
 
+import gnu.io.NoSuchPortException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,13 +33,14 @@ public class EpuckAvecThread implements ObservableEpuck
 		private List<ObservateurEPuck> listeObservateur;
 		
 
-		public EpuckAvecThread(int i, String p, String p1)
+		public EpuckAvecThread(int i, String p, String p1) throws NoSuchPortException
 		{
 			
 			this.listeObservateur=new ArrayList<ObservateurEPuck>();
+			
 			this.port= new SerialPortConnexion(p);
 			this.port1= new SerialPortConnexion(p1);
-			System.out.println("port drée");
+			
 			this.identifiant = 80+i; 
 			
 			this.port.ouvrirPort();

@@ -76,34 +76,34 @@ public class EnvoieTramesRobot extends Thread
 	{
 		try
 		{
-			if(ordre.equals(EpuckOrder.ACCELEROMETRE.toString()))
+			if(ordre.equals(EpuckOrder.ACCELEROMETRE))
 				out.write((EpuckOrder.ACCELEROMETRE+"\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.PROXIMITE.toString()))
+			else if(ordre.equals(EpuckOrder.PROXIMITE))
 				out.write((EpuckOrder.PROXIMITE+"\n\r").getBytes("US-ASCII"));
 			
 			else if(ordre.equals(EpuckOrder.ARRETER.toString()))
 				out.write((EpuckOrder.ARRETER+"\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.AVANCERTOUTDROIT.toString()))
+			else if(ordre.equals(EpuckOrder.AVANCERTOUTDROIT))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+","+v+","+v+"\n\r").getBytes("US-ASCII"));
 			
 			else if(ordre.equals(EpuckOrder.TOUPIE.toString()))
 				out.write((EpuckOrder.TOUPIE+","+(-v)+","+v+"\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.TOURNERGACHE.toString()))
+			else if(ordre.equals(EpuckOrder.TOURNERGACHE))
 				out.write((EpuckOrder.TOUPIE+",-100,100\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.TOURNERDROITE.toString()))
+			else if(ordre.equals(EpuckOrder.TOURNERDROITE))
 				out.write((EpuckOrder.TOUPIE+",100,-100\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.AVANCERVALEURDEFAUT.toString()))
+			else if(ordre.equals(EpuckOrder.AVANCERVALEURDEFAUT))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+",500,500\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.RECULER.toString()))
+			else if(ordre.equals(EpuckOrder.RECULER))
 				out.write((EpuckOrder.AVANCERTOUTDROIT+",-500,-500\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE.toString()))
+			else if(ordre.equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
 				out.write(("?,"+x+","+y+"\n\r").getBytes("US-ASCII"));	
 			else 
 				System.out.println("param pas trouvé ordre");

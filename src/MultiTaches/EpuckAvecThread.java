@@ -53,6 +53,8 @@ public class EpuckAvecThread implements ObservableEpuck
 			this.envoieTramesMASH = new EnvoieTramesMASH("EnvoieTramesMASH", port1.obtenirConnexionSortie());
 			this.lecteurTramesMASH = new LecteurTramesMASH("lecteurTramesMASH",port1.obtenirConnexionEntree(), this);
 			
+			
+			
 			System.out.println("thread creer\n");
 		}
 		
@@ -80,18 +82,48 @@ public class EpuckAvecThread implements ObservableEpuck
 				{
 					TramesMASH trame = new TramesMASH(chaineretour);
 					
-					if(trame.getDonne().substring(0).equals("?"))
+					if(trame.getDonne().substring(0).equals("t"))
 					{
 						this.notifierObserver(trame);
 						System.out.println("A notifier");
 					}
 					this.envoieTramesMASH.redirectionTrames(chaineretour);
 				}
+				else
+				{
+					if(chaineretour.substring(0).equals("t"))
+					{
+						this.notifierObserver(chaineretour);
+						System.out.println("A notifier");
+					}
+				}
+			}
+			else
+			{
+				if(chaineretour.substring(0).equals("t"))
+				{
+					this.notifierObserver(chaineretour);
+					System.out.println("A notifier");
+				}
 			}
 			System.out.println(chaineretour);
 		}
 		
 		
+		private void notifierObserver(String chaineretour) 
+		{
+			System.out.println("Je rentre dans la méthode notifierObserver");
+			for(ObservateurEPuck obs : this.listeObservateur)
+			{
+				System.out.println("Je lance actualiser");
+				String[] coordonnées = new String[3];
+				coordonnées = chaineretour.split(",");
+				obs.actualiser(Double.parseDouble(coordonnées[1]),Double.parseDouble(coordonnées[2]));
+			}
+			
+		}
+
+
 		public void envoieDOrdreAuRobot(EpuckOrder o, int i,int x,int y)
 		{
 			this.envoieTramesRobot.envoieOrdre(o, i,x ,y);
@@ -99,6 +131,7 @@ public class EpuckAvecThread implements ObservableEpuck
 		
 		public void envoieDOrdreAuRobot(EpuckOrder ordre, int x,int y) 
 		{
+			System.out.println("On retransmet l'ordre");
 			this.envoieTramesRobot.envoieOrdre(ordre,x ,y);
 		}
 		
@@ -129,7 +162,7 @@ public class EpuckAvecThread implements ObservableEpuck
 				System.out.println("Je lance actualiser");
 				String[] coordonnées = new String[3];
 				coordonnées = trame.getDonne().split(",");
-				obs.actualiser(Float.parseFloat(coordonnées[1]),Float.parseFloat(coordonnées[2]));
+				obs.actualiser(Double.parseDouble(coordonnées[1]),Double.parseDouble(coordonnées[2]));
 			}
 			
 		}

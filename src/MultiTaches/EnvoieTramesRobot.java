@@ -31,7 +31,6 @@ public class EnvoieTramesRobot extends Thread
 	{
 		try
 		{
-			System.out.println(l[0]+","+l[1]+","+l[2]);
 			if(l[0].equals(EpuckOrder.ACCELEROMETRE.toString()))
 				out.write((EpuckOrder.ACCELEROMETRE+"\n\r").getBytes("US-ASCII"));
 			
@@ -60,7 +59,10 @@ public class EnvoieTramesRobot extends Thread
 				out.write((EpuckOrder.AVANCERTOUTDROIT+",-500,-500\n\r").getBytes("US-ASCII"));
 			
 			else if(l[0].equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE.toString()))
-				out.write(("?,"+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));	
+			{
+				
+				out.write(("t,"+l[1]+","+l[2]+"\n\r").getBytes("US-ASCII"));
+			}
 			else 
 				System.out.println("tab pas trouvé ordre");
 		}
@@ -76,32 +78,29 @@ public class EnvoieTramesRobot extends Thread
 	{
 		try
 		{
-			if(ordre.equals(EpuckOrder.ACCELEROMETRE))
+			if(ordre==EpuckOrder.ACCELEROMETRE)
 				out.write((EpuckOrder.ACCELEROMETRE+"\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.PROXIMITE))
+			else if(ordre==EpuckOrder.PROXIMITE)
 				out.write((EpuckOrder.PROXIMITE+"\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.ARRETER.toString()))
+			else if(ordre==EpuckOrder.ARRETER)
 				out.write((EpuckOrder.ARRETER+"\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.AVANCERTOUTDROIT))
+			else if(ordre==EpuckOrder.AVANCERTOUTDROIT)
 				out.write((EpuckOrder.AVANCERTOUTDROIT+","+v+","+v+"\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.TOUPIE.toString()))
-				out.write((EpuckOrder.TOUPIE+","+(-v)+","+v+"\n\r").getBytes("US-ASCII"));
+			else if(ordre==EpuckOrder.TOURNERGACHE)
+				out.write((EpuckOrder.TOURNERGACHE+","+-v+","+v+"\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.TOURNERGACHE))
-				out.write((EpuckOrder.TOUPIE+",-100,100\n\r").getBytes("US-ASCII"));
+			else if(ordre==EpuckOrder.TOURNERDROITE)
+				out.write((EpuckOrder.TOURNERDROITE+","+v+","+(-v)+"\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.TOURNERDROITE))
-				out.write((EpuckOrder.TOUPIE+",100,-100\n\r").getBytes("US-ASCII"));
+			else if(ordre==EpuckOrder.AVANCERVALEURDEFAUT)
+				out.write((EpuckOrder.AVANCERVALEURDEFAUT+",500,500\n\r").getBytes("US-ASCII"));
 			
-			else if(ordre.equals(EpuckOrder.AVANCERVALEURDEFAUT))
-				out.write((EpuckOrder.AVANCERTOUTDROIT+",500,500\n\r").getBytes("US-ASCII"));
-			
-			else if(ordre.equals(EpuckOrder.RECULER))
-				out.write((EpuckOrder.AVANCERTOUTDROIT+",-500,-500\n\r").getBytes("US-ASCII"));
+			else if(ordre==EpuckOrder.RECULER)
+				out.write((EpuckOrder.RECULER+","+(-v)+","+(-v)+"\n\r").getBytes("US-ASCII"));
 			else 
 				System.out.println("param pas trouvé ordre");
 		}
@@ -118,10 +117,13 @@ public class EnvoieTramesRobot extends Thread
 
 			try 
 			{
-				if(ordre.equals(EpuckOrder.COURBE))
+				if(ordre==EpuckOrder.COURBE)
 					out.write((EpuckOrder.COURBE+","+x+","+y+"\n\r").getBytes("US-ASCII"));
-				else if(ordre.equals(EpuckOrder.DEPLACEMENTPARCOORDONNEE))
-					out.write((EpuckOrder.DEPLACEMENTPARCOORDONNEE+"\n\r").getBytes("US-ASCII"));
+				else if(ordre==EpuckOrder.DEPLACEMENTPARCOORDONNEE)
+				{
+					System.out.println(EpuckOrder.DEPLACEMENTPARCOORDONNEE+","+x+","+y+"\n\r");
+					out.write((EpuckOrder.DEPLACEMENTPARCOORDONNEE+","+x+","+y+"\n\r").getBytes("US-ASCII"));
+				}
 				else
 					System.out.println("Pas trouvé");
 				

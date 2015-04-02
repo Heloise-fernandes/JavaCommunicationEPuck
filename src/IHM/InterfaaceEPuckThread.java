@@ -119,10 +119,13 @@ public class InterfaaceEPuckThread implements Runnable, ActionListener, KeyListe
 	{
 		try{
 			this.nombreEpuck++;
+			System.out.println("connexion...");
 			this.controler = new EpuckAvecThread(this.nombreEpuck,portCOM1, portCOM2);
+			this.controler.start();
 			JOptionPane.showMessageDialog(this.fenetre, "Connexion Réussie", "Information", JOptionPane.INFORMATION_MESSAGE);
 			//On ajoute le graphique en observeur afin de pouvoir, si besoin ajouter la position du robot sur le graphique
 			this.controler.ajouterObserver(this.graphique);
+			this.controler.envoieDOrdreAuRobot(EpuckOrder.ARRETER, 0, 0, 0);
 		}
 		catch ( NoSuchPortException e){
 			JOptionPane.showMessageDialog(this.fenetre, "Echec de Connexion", "Information", JOptionPane.ERROR_MESSAGE);
@@ -283,14 +286,15 @@ public class InterfaaceEPuckThread implements Runnable, ActionListener, KeyListe
 	 */
 	private void traiterGoTo() {
 		
+		System.out.println("on commence a traiter goto");
 		try {
 			int x = Integer.parseInt(this.panelCourbe.obtenirX());
 			int y = Integer.parseInt(this.panelCourbe.obtenirY());
+			System.out.println("x : "+x+", y : "+y);
+			this.controler.envoieDOrdreAuRobot(EpuckOrder.DEPLACEMENTPARCOORDONNEE, x, y);
 		} catch (NumberFormatException | TexteVideXException | TexteVideYException e) {
 			JOptionPane.showMessageDialog(this.fenetre, "Vous devez rentrer des nombres", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
-		
-		//TODO ajouter appel methode goto
 		
 	}
 	

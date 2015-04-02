@@ -46,16 +46,17 @@ public class LecteurTramesMASH extends Thread
 	public void run()
 	{
 
-		System.out.println("je lit les trames du mash");
+		System.out.println("MASh : je suis pret");
+		
 		while(true)
 		{
 			try
 			 {
 				if(br.ready())
 				{
-					System.out.println("je suis pret,mash");
+					System.out.println("MASH : je lit une trames du mash");
 					String line = "";
-					
+					System.out.println("MASH : "+line);
 					line = br.readLine();
 					if(line == null)
 					{
@@ -65,7 +66,7 @@ public class LecteurTramesMASH extends Thread
 					 
 					if(line.equals("\n"))
 						break;
-					System.out.println("mash : "+line);
+					System.out.println("MASH : "+line);
 					this.robot.envoieCommande(line);
 					  
 				}

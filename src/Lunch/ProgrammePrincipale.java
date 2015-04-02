@@ -50,13 +50,15 @@ public class ProgrammePrincipale
 
 		/*EpuckAvecThread epuck;
 		try {
-			epuck = new EpuckAvecThread(8, "COM4","COM3" );
+			epuck = new EpuckAvecThread(8, "COM9","COM5" );
 			epuck.start();
 		} catch (NoSuchPortException e) {
 			System.out.println("Pas de port");
 			e.printStackTrace();
 		}*/
-		SwingUtilities.invokeLater(new InterfaaceEPuckThread("COM3"));
+		
+		//On passe en paramètre le port de MASH
+		SwingUtilities.invokeLater(new InterfaaceEPuckThread("COM5"));
 				
 				
 		/*SerialPortConnexion port = new SerialPortConnexion("COM10");

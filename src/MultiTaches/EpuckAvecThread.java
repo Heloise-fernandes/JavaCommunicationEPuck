@@ -76,37 +76,31 @@ public class EpuckAvecThread implements ObservableEpuck
 		
 		public void trasfereDesDonneesRecusVersMash(String chaineretour)
 		{
-			if(chaineretour.length()>=4)
+			if(chaineretour.length()>=3)
 			{
-				if(chaineretour.substring(0,3).equals("01FE"))
+				System.out.println("la chaine est d'une longueur superieur ou egale à 3");
+				if(chaineretour.substring(0,4).equals("01FE"))
 				{
 					TramesMASH trame = new TramesMASH(chaineretour);
-					
-					if(trame.getDonne().substring(0).equals("t"))
+					System.out.println("Il s'agit d'une Trame Mash");
+
+					if(trame.getDonne().substring(0,1).equals("t"))
 					{
+						System.out.println("A notifier, il s'agit de coordonnées");
 						this.notifierObserver(trame);
-						System.out.println("A notifier");
 					}
 					this.envoieTramesMASH.redirectionTrames(chaineretour);
 				}
 				else
 				{
-					if(chaineretour.substring(0).equals("t"))
+					if(chaineretour.substring(0,1).equals("t"))
 					{
+						System.out.println("A notifier, il s'agit de coordonnées");
 						this.notifierObserver(chaineretour);
-						System.out.println("A notifier");
 					}
 				}
 			}
-			else
-			{
-				if(chaineretour.substring(0).equals("t"))
-				{
-					this.notifierObserver(chaineretour);
-					System.out.println("A notifier");
-				}
-			}
-			System.out.println(chaineretour);
+
 		}
 		
 		

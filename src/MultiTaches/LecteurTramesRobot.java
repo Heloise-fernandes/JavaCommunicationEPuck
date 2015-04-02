@@ -44,26 +44,28 @@ public class LecteurTramesRobot extends Thread
 
 	public void run()
 	{
-		System.out.println("je lit les trames du robot");
+		System.out.println("ROBOT : je suis pret");
 		while(true)
 		{
 			try
 			 {
 				if(br.ready())
 				{
-					System.out.println("je suis pret, robot");
+					
+					System.out.println("ROBOT : je lit une trames du robot");
 					String line = "";
 					
 					line = br.readLine();
+					
 					if(line == null)
 					{
-						System.out.println("probleme");
+						System.out.println("probleme, rien à lire");
 						break;
 					}
 					 
 					if(line.equals("\n"))
 						break;
-					System.out.println(line);
+					System.out.println("ROBOT lit : " + line);
 					this.epuck.trasfereDesDonneesRecusVersMash(line);
 					  
 				}

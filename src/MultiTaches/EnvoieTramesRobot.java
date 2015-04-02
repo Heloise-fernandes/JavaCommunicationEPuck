@@ -106,7 +106,7 @@ public class EnvoieTramesRobot extends Thread
 		}
 		catch (IOException e) 
 		{
-			System.out.println("Problème sortie (aide)"); 
+			System.out.println("Problème sortie "); 
 			e.printStackTrace();
 		}
 	}

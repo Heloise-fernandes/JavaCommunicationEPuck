@@ -25,6 +25,7 @@ public class EnvoieTramesMASH extends Thread
 	{
 		try
 		{
+			System.out.println("MASH : "+chaineretour);
 			out.write((chaineretour).getBytes("US-ASCII"));
 		}
 		catch (IOException e) 
